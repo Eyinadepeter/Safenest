@@ -122,12 +122,12 @@ export default function SignUpPage() {
           </div>
 
           <h1
-            className="text-2xl font-semibold leading-snug text-[#12355B] "
+            className="text-2xl font-bold leading-snug text-[#12355B] "
           >
             Save for what matters,
             <br /> one step at a time
           </h1>
-          <p className="mt-3 text-sm leading-relaxed text-teal-50/80">
+          <p className="mt-3 text-sm leading-relaxed text-teal-50/80 font-rounded">
             Create your account to start planning your first goal
           </p>
 
