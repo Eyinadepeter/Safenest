@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type ComponentProps } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -8,46 +8,9 @@ import Image from "next/image";
 import { Eye, EyeOff, ShieldCheck } from "lucide-react";
 import background from "../assets/images/background.png";
 import logo from "../assets/images/logo.png";
-
-// ---- Small inline brand icons (Google / Facebook / Apple) ----
-function GoogleIcon(props: ComponentProps<"svg">) {
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" {...props}>
-      <path
-        fill="#4285F4"
-        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.76h3.55c2.08-1.92 3.29-4.74 3.29-8.09z"
-      />
-      <path
-        fill="#34A853"
-        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.55-2.76c-.99.66-2.25 1.06-3.73 1.06-2.87 0-5.3-1.94-6.17-4.53H2.18v2.85A10.98 10.98 0 0 0 12 23z"
-      />
-      <path
-        fill="#FBBC05"
-        d="M5.83 14.11A6.6 6.6 0 0 1 5.48 12c0-.73.13-1.44.35-2.11V7.04H2.18A10.98 10.98 0 0 0 1 12c0 1.77.43 3.45 1.18 4.96l3.65-2.85z"
-      />
-      <path
-        fill="#EA4335"
-        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 1.99 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.04l3.65 2.85C6.7 7.31 9.13 5.38 12 5.38z"
-      />
-    </svg>
-  );
-}
-
-function FacebookIcon(props: ComponentProps<"svg">) {
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="#1877F2" {...props}>
-      <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z" />
-    </svg>
-  );
-}
-
-function AppleIcon(props: ComponentProps<"svg">) {
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="#111111" {...props}>
-      <path d="M16.36 1.43c0 1.14-.42 2.2-1.24 3.03-.83.85-2.05 1.5-3.22 1.4-.15-1.1.42-2.24 1.22-3.04.82-.83 2.22-1.44 3.24-1.39zM20.6 17.34c-.53 1.21-.78 1.75-1.46 2.82-.95 1.5-2.29 3.36-3.95 3.38-1.47.02-1.85-.96-3.84-.95-1.99.01-2.4.97-3.87.95-1.66-.02-2.93-1.7-3.88-3.2-2.65-4.16-2.93-9.04-1.3-11.64 1.16-1.86 2.99-2.95 4.72-2.95 1.76 0 2.87 1 4.32 1 1.41 0 2.28-1 4.32-1 1.55 0 3.18.85 4.34 2.31-3.82 2.09-3.2 7.53.6 9.28z" />
-    </svg>
-  );
-}
+import googleIcon from "../assets/images/googleicon.png";
+import facebookIcon from "../assets/images/facebookicon.png";
+import appleIcon from "../assets/images/appleIcon.png";
 
 // ---------------- Validation schema ----------------
 const signUpSchema = z
@@ -325,16 +288,16 @@ export default function SignUpPage() {
 
               <div className="flex items-center justify-center gap-3">
   {[
-    { Icon: GoogleIcon, name: "Google" },
-    { Icon: FacebookIcon, name: "Facebook" },
-    { Icon: AppleIcon, name: "Apple" },
-  ].map(({ Icon, name }) => (
+    { src: googleIcon, label: "Google" },
+    { src: facebookIcon, label: "Facebook" },
+    { src: appleIcon, label: "Apple" },
+  ].map(({ src, label }) => (
     <button
-      key={name}
+      key={label}
       type="button"
       className="flex h-11 w-20 items-center justify-center rounded-lg border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:shadow-md"
     >
-      <Icon className="h-5 w-5" />
+      <Image src={src} alt={`${label} icon`} width={20} height={20} className="h-5 w-5" />
     </button>
   ))}
 </div>

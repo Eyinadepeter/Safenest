@@ -24,7 +24,7 @@ function FieldError({ message }: { message?: string }) {
   return <p className="mt-1 text-[11px] text-red-600">{message}</p>;
 }
 
-export default function SignInPage() {
+export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -38,7 +38,7 @@ export default function SignInPage() {
 
   const onSubmit = async (values: LoginValues) => {
     await new Promise((resolve) => setTimeout(resolve, 600));
-    console.log("Sign in values", values);
+    console.log("Login values", values);
   };
 
   return (
@@ -53,12 +53,12 @@ export default function SignInPage() {
           </div>
 
           <h1 className="text-2xl font-semibold leading-snug text-[#12355B]">
-            Welcome back to SafeNest.
+            Save for what matters.
             <br />
-            Keep your savings goals on track.
+            Start from the right place.
           </h1>
           <p className="mt-3 text-sm leading-relaxed text-teal-50/80">
-            Sign in to manage your goals and review your progress.
+            Log in to view your plan and continue building stronger savings habits.
           </p>
         </div>
       </div>
