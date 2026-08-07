@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ComponentProps } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -10,9 +10,9 @@ import background from "../assets/images/background.png";
 import logo from "../assets/images/logo.png";
 
 // ---- Small inline brand icons (Google / Facebook / Apple) ----
-function GoogleIcon() {
+function GoogleIcon(props: ComponentProps<"svg">) {
   return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4">
+    <svg viewBox="0 0 24 24" className="h-4 w-4" {...props}>
       <path
         fill="#4285F4"
         d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.76h3.55c2.08-1.92 3.29-4.74 3.29-8.09z"
@@ -33,17 +33,17 @@ function GoogleIcon() {
   );
 }
 
-function FacebookIcon() {
+function FacebookIcon(props: ComponentProps<"svg">) {
   return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="#1877F2">
+    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="#1877F2" {...props}>
       <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z" />
     </svg>
   );
 }
 
-function AppleIcon() {
+function AppleIcon(props: ComponentProps<"svg">) {
   return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="#111111">
+    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="#111111" {...props}>
       <path d="M16.36 1.43c0 1.14-.42 2.2-1.24 3.03-.83.85-2.05 1.5-3.22 1.4-.15-1.1.42-2.24 1.22-3.04.82-.83 2.22-1.44 3.24-1.39zM20.6 17.34c-.53 1.21-.78 1.75-1.46 2.82-.95 1.5-2.29 3.36-3.95 3.38-1.47.02-1.85-.96-3.84-.95-1.99.01-2.4.97-3.87.95-1.66-.02-2.93-1.7-3.88-3.2-2.65-4.16-2.93-9.04-1.3-11.64 1.16-1.86 2.99-2.95 4.72-2.95 1.76 0 2.87 1 4.32 1 1.41 0 2.28-1 4.32-1 1.55 0 3.18.85 4.34 2.31-3.82 2.09-3.2 7.53.6 9.28z" />
     </svg>
   );
