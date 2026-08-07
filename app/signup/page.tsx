@@ -141,7 +141,7 @@ export default function SignUpPage() {
   const password = watch("password", "");
 
   const onSubmit = async (values: SignUpValues) => {
-    // Replace with your actual sign-up request
+    
     await new Promise((r) => setTimeout(r, 600));
     console.log("Sign up values", values);
   };
