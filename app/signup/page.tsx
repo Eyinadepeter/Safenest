@@ -193,12 +193,11 @@ export default function SignUpPage() {
 
         <div className="mx-auto w-full max-w-sm flex-1 px-6 py-6 sm:px-0">
 
-          <h2 className="text-xl font-semibold text-slate-800 align-center justify-center sm:text-2xl" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+          <h2 className="text-xl font-semibold text-slate-800 text-center sm:text-2xl">
             Welcome Back to SafeNest!
           </h2>
           <p
-            className="mt-1 text-sm text-slate-500 align-center justify-center sm:text-base"
-            style={{ fontFamily: "'Inter', 'Segoe UI', 'Arial', sans-serif" }}
+            className="mt-1 text-sm font-sm text-slate-500 text-center sm:text-base"
           >
             Join SafeNest plan today, achieve tomorrow
           </p>
@@ -325,16 +324,20 @@ export default function SignUpPage() {
               </div>
 
               <div className="flex items-center justify-center gap-3">
-                {[GoogleIcon, FacebookIcon, AppleIcon].map((Icon, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white transition hover:bg-slate-50"
-                  >
-                    <Icon />
-                  </button>
-                ))}
-              </div>
+  {[
+    { Icon: GoogleIcon, name: "Google" },
+    { Icon: FacebookIcon, name: "Facebook" },
+    { Icon: AppleIcon, name: "Apple" },
+  ].map(({ Icon, name }) => (
+    <button
+      key={name}
+      type="button"
+      className="flex h-11 w-20 items-center justify-center rounded-lg border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:shadow-md"
+    >
+      <Icon className="h-5 w-5" />
+    </button>
+  ))}
+</div>
             </div>
 
             <button
