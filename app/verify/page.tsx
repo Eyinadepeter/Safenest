@@ -142,10 +142,8 @@ export default function VerifyAccountPage() {
   
     return (
   <main className="min-h-screen w-full bg-white px-5 py-6 sm:px-8 lg:px-10">
-    <div className="mx-auto flex min-h-screen w-full max-w-2xl flex-col items-center">
-
-      {/* Back button */}
-      <div className="w-full">
+     {/* Back button */}
+    <div className="w-full ">
         <button
           type="button"
           onClick={() => router.back()}
@@ -155,6 +153,10 @@ export default function VerifyAccountPage() {
           <ArrowLeft size={15} strokeWidth={1.5} />
         </button>
       </div>
+    <div className="mx-auto flex min-h-screen w-full max-w-2xl flex-col items-center">
+
+     
+      
 
       {/* Main content - stacked vertically */}
       <div className="flex w-full flex-1 flex-col items-center justify-center text-center">
