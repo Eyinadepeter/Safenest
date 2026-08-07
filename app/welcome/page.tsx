@@ -11,11 +11,11 @@ export default async function WelcomePage({
   const name = params.name?.trim() || "there";
 
   return (
-    <main className="min-h-screen bg-white flex items-center justify-center px-6">
-      <div className="w-full max-w-[360px] flex flex-col items-center text-center">
+    <main className="min-h-screen w-full bg-white flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="flex w-full max-w-2xl flex-col items-center justify-center text-center">
 
         {/* Illustration */}
-        <div className="relative w-[300px] h-[230px] mb-8">
+        <div className="relative mb-8 h-[260px] w-[340px] sm:mb-10 sm:h-[300px] sm:w-[400px] lg:h-[340px] lg:w-[460px]">
           <Image
             src={achievementImage}
             alt="Account successfully created"
@@ -26,12 +26,12 @@ export default async function WelcomePage({
         </div>
 
         {/* Heading */}
-        <h1 className="font-rounded text-[15px] leading-tight text-slate-800">
+        <h1 className="font-rounded text-base font-bold leading-tight text-slate-800 sm:text-lg lg:text-xl">
           Account Successfully Created, {name}
         </h1>
 
         {/* Description */}
-        <p className="mt-3 max-w-[330px] font-sans text-[11px] leading-[1.45] text-slate-500">
+        <p className="mt-3 max-w-[420px] px-2 font-sans text-xs leading-relaxed text-slate-500 sm:text-sm lg:text-sm">
           Big goals are not reached in one leap, they are reached one
           consistent step at a time. You just took yours.
         </p>
@@ -39,7 +39,7 @@ export default async function WelcomePage({
         {/* CTA */}
         <Link
           href="/dashboard"
-          className="mt-7 w-full rounded-[6px] bg-[#173F68] py-3 text-center font-rounded text-[10px] text-white transition hover:bg-[#123555]"
+          className="mt-8 w-full max-w-[380px] rounded-lg bg-[#173F68] py-3.5 text-center font-rounded text-xs font-bold text-white transition duration-200 hover:bg-[#123555] focus:outline-none focus:ring-2 focus:ring-[#173F68] focus:ring-offset-2 sm:mt-10 sm:py-4 sm:text-sm"
         >
           Let&apos;s Get Started
         </Link>
@@ -47,4 +47,4 @@ export default async function WelcomePage({
       </div>
     </main>
   );
-}   
+}
