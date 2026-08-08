@@ -12,162 +12,210 @@ import googleIcon from "../assets/images/googleicon.png";
 import facebookIcon from "../assets/images/facebookicon.png";
 import appleIcon from "../assets/images/appleIcon.png";
 
-const loginSchema = z.object({
-  email: z.string().trim().min(1, "Email is required").email("Enter a valid email"),
-  password: z.string().min(8, "Enter at least 8 characters"),
+import PasswordIncorrectModal from "../components/PasswordIncorrectModal";
+
+// =========================
+// Validation
+// =========================
+
+const signInSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .min(1, "Email is required")
+    .email("Enter a valid email"),
+
+  password: z
+    .string()
+    .min(1, "Password is required"),
 });
 
-type LoginValues = z.infer<typeof loginSchema>;
+type SignInValues = z.infer<typeof signInSchema>;
 
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
-  return <p className="mt-1 text-[11px] text-red-600">{message}</p>;
+
+  return (
+    <p className="mt-1 text-xs text-red-500">
+      {message}
+    </p>
+  );
 }
+
+// =========================
+// Sign In Page
+// =========================
 
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [showIncorrectModal, setShowIncorrectModal] = useState(false);
 
   const {
     register,
     handleSubmit,
+    setFocus,
     formState: { errors, isSubmitting },
-  } = useForm<LoginValues>({
-    resolver: zodResolver(loginSchema),
+  } = useForm<SignInValues>({
+    resolver: zodResolver(signInSchema),
     mode: "onBlur",
   });
 
-  const onSubmit = async (values: LoginValues) => {
+  const onSubmit = async (values: SignInValues) => {
+    // Replace this with your backend API request
     await new Promise((resolve) => setTimeout(resolve, 600));
-    console.log("Sign in values", values);
+
+    console.log("Sign in values:", values);
+
+    setShowIncorrectModal(true);
+  };
+
+  const handleTryAgain = () => {
+    setShowIncorrectModal(false);
+    setFocus("password");
+  };
+
+  const handleResetPassword = () => {
+    setShowIncorrectModal(false);
+    window.location.href = "/forgot-password";
   };
 
   return (
-    <div className="flex min-h-screen w-full bg-white">
-      <div className="relative hidden w-1/2 overflow-hidden lg:flex lg:flex-col lg:items-center lg:justify-center">
-        <Image src={background} alt="SafeNest background" fill className="object-cover" priority />
-        <div className="absolute inset-0 bg-teal-900/40" />
+    <main className="relative min-h-screen overflow-hidden bg-slate-50">
+      <Image src={background} alt="SafeNest background" fill className="object-cover" priority />
+      <div className="absolute inset-0 bg-slate-950/30" />
 
-        <div className="relative z-10 flex max-w-sm flex-col items-center px-10 text-center">
-          <div className="mb-10 flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-teal-900/40 ring-1 ring-white/20 backdrop-blur-sm">
-            <Image src={logo} alt="SafeNest logo" width={96} height={96} className="h-full w-full object-cover" />
-          </div>
+      <div className="relative z-10 flex min-h-screen items-center justify-center  ">
+        <div className="w-full max-w-2xl  bg-white/95 shadow-2xl shadow-slate-900/10 ring-1 ring-slate-900/5 backdrop-blur-xl">
+          <div className="px-6 py-6 sm:px-8 sm:py-8">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-teal-50">
+                  <Image src={logo} alt="SafeNest logo" width={50} height={50} className="h-10 w-10" />
+                </div>
+                <div className="flex items-center">
+  <span className="text-[18px] font-bold tracking-[-0.4px] text-[#12355B]">
+    Safe
+  </span>
+  <span className="text-[18px] font-bold tracking-[-0.4px] text-[#42a7b3]">
+    Nest
+  </span>
+</div>
+              </div>
 
-          <h1 className="text-2xl font-semibold leading-snug text-[#12355B]">
-            Welcome back to SafeNest.
-            <br />
-            Keep your savings goals on track.
-          </h1>
-          <p className="mt-3 text-sm leading-relaxed text-teal-50/80">
-            Sign in to manage your goals and review your progress.
-          </p>
-        </div>
-      </div>
-
-      <div className="flex w-full flex-col justify-between lg:w-1/2">
-        <div className="flex justify-end px-6 pt-6 sm:px-12">
-          <p className="text-xs text-slate-500">
-            New to SafeNest?{" "}
-            <a href="/signup" className="font-medium text-teal-700 hover:underline">
-              Create account
-            </a>
-          </p>
-        </div>
-
-        <div className="mx-auto w-full max-w-sm flex-1 px-6 py-6 sm:px-0">
-          <h2 className="text-xl font-semibold text-slate-800 text-center sm:text-2xl">
-            Sign in to your account
-          </h2>
-          <p className="mt-1 text-sm text-slate-500 text-center sm:text-base">
-            Enter your credentials to continue.
-          </p>
-
-          <form className="mt-6 space-y-4" onSubmit={handleSubmit(onSubmit)} noValidate>
-            <div>
-              <label className="mb-1.5 block text-xs font-medium text-slate-600">Email Address</label>
-              <input
-                type="email"
-                placeholder="you@example.com"
-                {...register("email")}
-                className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 outline-none transition focus:ring-2 ${
-                  errors.email
-                    ? "border-red-400 focus:border-red-400 focus:ring-red-100"
-                    : "border-slate-200 focus:border-teal-500 focus:ring-teal-100"
-                }`}
-              />
-              <FieldError message={errors.email?.message} />
+              <p className="text-sm text-slate-600">
+                Don&apos;t have an account?{" "}
+                <a href="/signup" className="font-semibold text-[#12355B] underline underline-offset-2 hover:text-teal-800">
+                  Sign Up
+                </a>
+              </p>
             </div>
 
-            <div>
-              <label className="mb-1.5 block text-xs font-medium text-slate-600">Password</label>
-              <div className="relative">
+            <div className="mx-auto mt-8 text-center">
+              <h1 className="font-bold text-[#3A3A3A] sm:text-4xl">
+                Welcome Back to SafeNest!
+              </h1>
+              <p className="mt-3 text-sm text-slate-500 sm:text-base">
+                Log in to check your savings progress.
+              </p>
+            </div>
+
+            <div className="mt-8 space-y-4">
+              {[
+                { src: googleIcon, label: "Google" },
+                { src: facebookIcon, label: "Facebook" },
+                { src: appleIcon, label: "Apple" },
+              ].map(({ src, label }) => (
+                <button
+                  key={label}
+                  type="button"
+                  aria-label={`Sign in with ${label}`}
+                  className="flex h-12 w-full items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50"
+                >
+                  <Image src={src} alt={`${label} icon`} width={20} height={20} className="h-5 w-5" />
+                  <span>Sign In with {label}</span>
+                </button>
+              ))}
+            </div>
+
+            <div className="my-7 flex items-center gap-3 text-sm text-slate-400">
+              <div className="h-px flex-1 bg-slate-200" />
+              <span>Or sign in with</span>
+              <div className="h-px flex-1 bg-slate-200" />
+            </div>
+
+            <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5 px-4 sm:px-0">
+              <div>
+                <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
+                  Email Address
+                </label>
                 <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
-                  {...register("password")}
-                  className={`w-full rounded-lg border bg-white px-3.5 py-2.5 pr-10 text-sm text-slate-800 placeholder:text-slate-400 outline-none transition focus:ring-2 ${
-                    errors.password
-                      ? "border-red-400 focus:border-red-400 focus:ring-red-100"
+                  id="email"
+                  type="email"
+                  placeholder="NestSafe@gmail.com"
+                  {...register("email")}
+                  className={`w-full rounded-2xl border bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 ${
+                    errors.email
+                      ? "border-red-400 focus:ring-2 focus:ring-red-100"
                       : "border-slate-200 focus:border-teal-500 focus:ring-teal-100"
                   }`}
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((value) => !value)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                >
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
-              </div>
-              <FieldError message={errors.password?.message} />
-            </div>
-
-            <div className="pt-1">
-              <div className="relative flex items-center py-2">
-                <div className="flex-grow border-t border-slate-200" />
-                <span className="mx-3 text-xs text-slate-400">Or sign in with</span>
-                <div className="flex-grow border-t border-slate-200" />
+                <FieldError message={errors.email?.message} />
               </div>
 
-              <div className="flex items-center justify-center gap-3">
-                {[
-                  { src: googleIcon, label: "Google" },
-                  { src: facebookIcon, label: "Facebook" },
-                  { src: appleIcon, label: "Apple" },
-                ].map(({ src, label }) => (
+              <div>
+                <label htmlFor="password" className="mb-2 block text-sm font-medium text-slate-700">
+                  Password
+                </label>
+                <div className="relative">
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="SafeNestAt12"
+                    {...register("password")}
+                    className={`w-full rounded-2xl border bg-white px-4 py-3 pr-12 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 ${
+                      errors.password
+                        ? "border-red-400 focus:ring-2 focus:ring-red-100"
+                        : "border-slate-200 focus:border-teal-500 focus:ring-teal-100"
+                    }`}
+                  />
                   <button
-                    key={label}
                     type="button"
-                    className="flex h-11 w-20 items-center justify-center rounded-lg border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:shadow-md"
+                    onClick={() => setShowPassword((value) => !value)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-800"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
                   >
-                    <Image src={src} alt={`${label} icon`} width={20} height={20} className="h-5 w-5" />
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
-                ))}
+                </div>
+                <FieldError message={errors.password?.message} />
               </div>
-            </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="mt-2 w-full rounded-lg bg-teal-700 py-3 text-sm font-semibold text-white transition hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-300 disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {isSubmitting ? "Signing in…" : "Sign In"}
-            </button>
-          </form>
-        </div>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="mt-2 h-12 w-full rounded-2xl bg-[#12355B] text-sm font-semibold text-white transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-300 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isSubmitting ? "Signing in..." : "Sign In"}
+              </button>
 
-        <div className="flex items-center justify-between px-6 pb-6 text-xs text-slate-400 sm:px-12">
-          <span>© 2026 SafeNest</span>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-slate-600">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-slate-600">
-              Support
-            </a>
+              <div className="pt-2 text-center">
+                <a href="/forgot-password" className="text-sm font-semibold text-rose-600 hover:underline">
+                  Forgot Password?
+                </a>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* ================= MODAL ================= */}
+
+      <PasswordIncorrectModal
+        open={showIncorrectModal}
+        onClose={() => setShowIncorrectModal(false)}
+        onTryAgain={handleTryAgain}
+        onResetPassword={handleResetPassword}
+      />
+    </main>
   );
 }

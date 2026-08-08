@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { registerUser } from "../services/auth.service";
 import { z } from "zod";
 import Image from "next/image";
 import { Eye, EyeOff, ShieldCheck } from "lucide-react";
@@ -20,17 +22,30 @@ const signUpSchema = z
       .trim()
       .min(2, "Enter your full name")
       .regex(/^[a-zA-Z\s'-]+$/, "Name can only contain letters"),
+
     phone: z
       .string()
       .trim()
       .regex(/^\+?[0-9]{10,14}$/, "Enter a valid phone number"),
-    email: z.string().trim().min(1, "Email is required").email("Enter a valid email"),
+
+    email: z
+      .string()
+      .trim()
+      .min(1, "Email is required")
+      .email("Enter a valid email"),
+
     password: z
       .string()
       .min(8, "At least 8 characters")
+      .regex(/[a-z]/, "Add a lowercase letter")
       .regex(/[A-Z]/, "Add an uppercase letter")
-      .regex(/[0-9]/, "Add a number"),
-    confirmPassword: z.string(),
+      .regex(/[0-9]/, "Add a number")
+      .regex(/[^A-Za-z0-9]/, "Add a special character"),
+
+    // ADD THIS
+    confirmPassword: z
+      .string()
+      .min(1, "Please confirm your password"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -88,8 +103,12 @@ function FieldError({ message }: { message?: string }) {
 }
 
 export default function SignUpPage() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
+const router = useRouter();
+
+const [showPassword, setShowPassword] = useState(false);
+const [showConfirm, setShowConfirm] = useState(false);
+
+  
 
   const {
     register,
@@ -102,12 +121,33 @@ export default function SignUpPage() {
   });
 
   const password = watch("password", "");
+  const [serverError, setServerError] = useState<string | null>(null);
 
-  const onSubmit = async (values: SignUpValues) => {
-    
-    await new Promise((r) => setTimeout(r, 600));
-    console.log("Sign up values", values);
-  };
+ const onSubmit = async (values: SignUpValues) => {
+  setServerError(null);
+
+  try {
+    const response = await registerUser({
+      fullName: values.fullName,
+      email: values.email,
+      phone: values.phone,
+      password: values.password,
+      confirmPassword: values.confirmPassword,
+    });
+
+    console.log("Registration successful:", response);
+
+    router.push(
+      `/verify-account?email=${encodeURIComponent(values.email)}`
+    );
+  } catch (error) {
+    setServerError(
+      error instanceof Error
+        ? error.message
+        : "Unable to create your account."
+    );
+  }
+};
 
   return (
     <div className="flex min-h-screen w-full bg-white">
@@ -280,13 +320,13 @@ export default function SignUpPage() {
             <div className="pt-1">
               <div className="relative flex items-center py-2">
                 <div className="flex-grow border-t border-slate-200" />
-                <span className="mx-3 text-xs text-slate-400">
+                <span className="mx-3 text-xs text-slate-400 cursor-pointer">
                   Or sign in with
                 </span>
                 <div className="flex-grow border-t border-slate-200" />
               </div>
 
-              <div className="flex items-center justify-center gap-3">
+              <div className="flex items-center justify-center gap-3 ">
   {[
     { src: googleIcon, label: "Google" },
     { src: facebookIcon, label: "Facebook" },
@@ -302,11 +342,16 @@ export default function SignUpPage() {
   ))}
 </div>
             </div>
+            {serverError && (
+  <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">
+    {serverError}
+  </div>
+)}
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="mt-2 w-full rounded-lg bg-teal-700 py-3 text-sm font-semibold text-white transition hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-300 disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-2 w-full rounded-lg cursor-pointer bg-teal-700 py-3 text-sm font-semibold text-white transition hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-300 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isSubmitting ? "Creating account…" : "Sign Up"}
             </button>
