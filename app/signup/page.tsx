@@ -317,16 +317,16 @@ const [showConfirm, setShowConfirm] = useState(false);
               <FieldError message={errors.confirmPassword?.message} />
             </div>
 
-            <div className="pt-1">
+            <div className="pt-1 ">
               <div className="relative flex items-center py-2">
-                <div className="flex-grow border-t border-slate-200" />
-                <span className="mx-3 text-xs text-slate-400 cursor-pointer">
+                <div className="flex-grow border-t border-slate-200 " />
+                <span className="mx-3 text-xs text-slate-400 ">
                   Or sign in with
                 </span>
-                <div className="flex-grow border-t border-slate-200" />
+                <div className="flex-grow border-t border-slate-200 " />
               </div>
 
-              <div className="flex items-center justify-center gap-3 ">
+              <div className="flex items-center justify-center gap-3  ">
   {[
     { src: googleIcon, label: "Google" },
     { src: facebookIcon, label: "Facebook" },
@@ -335,7 +335,7 @@ const [showConfirm, setShowConfirm] = useState(false);
     <button
       key={label}
       type="button"
-      className="flex h-11 w-20 items-center justify-center rounded-lg border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:shadow-md"
+      className="flex cursor-pointer h-11 w-20 items-center justify-center rounded-lg border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:shadow-md"
     >
       <Image src={src} alt={`${label} icon`} width={20} height={20} className="h-5 w-5" />
     </button>
