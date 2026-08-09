@@ -1,10 +1,7 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5052";
 
-if (!API_URL) {
-  throw new Error("NEXT_PUBLIC_API_URL is not configured");
-}
-
-export async function apiFetch<T>(
+export async function apiFetch<T = any>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> {
@@ -14,16 +11,18 @@ export async function apiFetch<T>(
       "Content-Type": "application/json",
       ...(options.headers || {}),
     },
-    credentials: "include",
   });
 
   const data = await response.json().catch(() => null);
 
   if (!response.ok) {
+    const message =
+      data?.message ||
+      data?.error ||
+      "Something went wrong. Please try again.";
+
     throw new Error(
-      Array.isArray(data?.message)
-        ? data.message.join(", ")
-        : data?.message || "Something went wrong"
+      Array.isArray(message) ? message.join(", ") : message
     );
   }
 
