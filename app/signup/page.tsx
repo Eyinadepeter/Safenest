@@ -138,7 +138,7 @@ const [showConfirm, setShowConfirm] = useState(false);
     console.log("Registration successful:", response);
 
     router.push(
-      `/welcome?name=${encodeURIComponent(values.fullName)}`
+      `/verify?name=${encodeURIComponent(values.fullName)}`
     );
   } catch (error) {
     setServerError(
