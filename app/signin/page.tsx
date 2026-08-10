@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import background from "../assets/images/background.png";
 import logo from "../assets/images/logo.png";
@@ -13,6 +14,7 @@ import facebookIcon from "../assets/images/facebookicon.png";
 import appleIcon from "../assets/images/appleIcon.png";
 
 import PasswordIncorrectModal from "../components/PasswordIncorrectModal";
+import { authenticateDemoAccount } from "../lib/demo-auth";
 
 // =========================
 // Validation
@@ -47,6 +49,7 @@ function FieldError({ message }: { message?: string }) {
 // =========================
 
 export default function SignInPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showIncorrectModal, setShowIncorrectModal] = useState(false);
 
@@ -60,13 +63,15 @@ export default function SignInPage() {
     mode: "onBlur",
   });
 
-  const onSubmit = async (values: SignInValues) => {
-    // Replace this with your backend API request
-    await new Promise((resolve) => setTimeout(resolve, 600));
+  const onSubmit = (values: SignInValues) => {
+    const account = authenticateDemoAccount(values.email, values.password);
 
-    console.log("Sign in values:", values);
+    if (!account) {
+      setShowIncorrectModal(true);
+      return;
+    }
 
-    setShowIncorrectModal(true);
+    router.push(`/welcome?name=${encodeURIComponent(account.fullName)}`);
   };
 
   const handleTryAgain = () => {

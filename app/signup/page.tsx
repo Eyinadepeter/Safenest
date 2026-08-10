@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { saveDemoAccount } from "../lib/demo-auth";
 import { z } from "zod";
 import Image from "next/image";
 import { Eye, EyeOff } from "lucide-react";
@@ -122,6 +123,11 @@ const [showConfirm, setShowConfirm] = useState(false);
   const password = watch("password", "");
 
  const onSubmit = (values: SignUpValues) => {
+  saveDemoAccount({
+    fullName: values.fullName,
+    email: values.email,
+    password: values.password,
+  });
   router.push(`/welcome?name=${encodeURIComponent(values.fullName)}`);
 };
 
