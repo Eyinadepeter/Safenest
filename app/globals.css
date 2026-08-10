@@ -10,6 +10,21 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  /* SafeNest brand tokens */
+  --color-navy: #12355b;
+  --color-navy-track: #2e4d6e;
+  --color-teal: #7dd3c7;
+  --color-teal-dark: #1f8a8a;
+  --color-mint: #e3f4f2;
+  --color-mint-soft: #d9f2ee;
+  --color-blue-accent: #1266b7;
+  --color-footer-blue: #489ee8;
+  --color-amber: #f4b400;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +37,6 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   font-family: "Arial Rounded MT Bold", "Arial Rounded MT", "Arial", sans-serif;
 }

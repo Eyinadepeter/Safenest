@@ -27,3 +27,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     </html>
   );
 }
+
+// export const metadata: Metadata = {
+//   title: "SafeNest — Turn big goals into simple monthly steps",
+//   description:
+//     "SafeNest breaks down financial goals and life's biggest expenses into a plan you can actually stick to, with reminders, insights, and encouragement along the way.",
+// };
