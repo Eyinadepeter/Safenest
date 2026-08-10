@@ -4,10 +4,9 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { registerUser } from "../services/auth.service";
 import { z } from "zod";
 import Image from "next/image";
-import { Eye, EyeOff, ShieldCheck } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import background from "../assets/images/background.png";
 import logo from "../assets/images/logo.png";
 import googleIcon from "../assets/images/googleicon.png";
@@ -121,32 +120,9 @@ const [showConfirm, setShowConfirm] = useState(false);
   });
 
   const password = watch("password", "");
-  const [serverError, setServerError] = useState<string | null>(null);
 
- const onSubmit = async (values: SignUpValues) => {
-  setServerError(null);
-
-  try {
-    const response = await registerUser({
-      fullName: values.fullName,
-      email: values.email,
-      phone: values.phone,
-      password: values.password,
-      confirmPassword: values.confirmPassword,
-    });
-
-    console.log("Registration successful:", response);
-
-    router.push(
-      `/verify?name=${encodeURIComponent(values.fullName)}`
-    );
-  } catch (error) {
-    setServerError(
-      error instanceof Error
-        ? error.message
-        : "Unable to create your account."
-    );
-  }
+ const onSubmit = (values: SignUpValues) => {
+  router.push(`/welcome?name=${encodeURIComponent(values.fullName)}`);
 };
 
   return (
@@ -342,12 +318,6 @@ const [showConfirm, setShowConfirm] = useState(false);
   ))}
 </div>
             </div>
-            {serverError && (
-  <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">
-    {serverError}
-  </div>
-)}
-
             <button
               type="submit"
               disabled={isSubmitting}
