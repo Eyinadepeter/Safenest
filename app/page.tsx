@@ -1,9 +1,19 @@
-import Image from "next/image";
+import Hero from "./hero";
+import ProblemSection from "./problemSection";
+import StatsSection from "./statsSection";
+import HowItWorks from "./howItWorks";
+import WhyChoose from "./whyChoose";
+import Footer from "./foter";
 
 export default function Home() {
   return (
     <>
-    <div>Welcome to Safenest</div>  
+      <Hero />
+      <ProblemSection />
+      <StatsSection />
+      <HowItWorks />
+      <WhyChoose />
+      <Footer />
     </>
   );
 }
