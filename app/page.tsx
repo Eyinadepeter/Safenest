@@ -1,12 +1,19 @@
-import Image from "next/image";
-import Header from "./components/Header";
+import Hero from "./hero";
+import ProblemSection from "./problemSection";
+import StatsSection from "./statsSection";
+import HowItWorks from "./howItWorks";
+import WhyChoose from "./whyChoose";
+import Footer from "./foter";
 
 export default function Home() {
   return (
     <>
-    <div>
-      <Header/>
-      </div>  
+      <Hero />
+      <ProblemSection />
+      <StatsSection />
+      <HowItWorks />
+      <WhyChoose />
+      <Footer />
     </>
   );
 }
