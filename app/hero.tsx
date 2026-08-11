@@ -54,7 +54,7 @@ export default function Hero() {
         <div className="relative mt-14 grid grid-cols-1 items-end gap-0 md:grid-cols-[1fr_1.1fr_1fr]">
           {/* left: badge + blank card */}
           <div className="relative flex flex-col items-start">
-            <span className="z-10 mb-[-1px] inline-block rounded-t-xl bg-navy px-5 py-3 text-sm font-semibold text-white">
+            <span className="z-5 mb-[-9px] inline-block rounded-t-xl bg-navy px-13 py-3 text-sm font-semibold text-white">
               Your Financial Accountability Partner
             </span>
             <div className="h-64 w-full max-w-sm rounded-t-2xl rounded-br-2xl bg-white md:h-72" />
