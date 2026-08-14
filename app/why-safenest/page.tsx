@@ -11,7 +11,7 @@ import Footer from "../components/foter";
 
 const faqs = [
   {
-    title: "What is Safe Nest?",
+    title: "What is Safe Nest?", 
     description:
       "Safe Nest is a goal-based financial planning platform that helps users create, manage, and stay on track with their personal financial goals through structured planning and progress tracking.",
   },
