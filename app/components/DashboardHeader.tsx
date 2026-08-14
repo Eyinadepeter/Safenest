@@ -29,22 +29,22 @@ const mainMenu = [
   },
   {
     name: "My Goals",
-    href: "/dashboard",
+    href: "/",
     icon: target,
   },
   {
     name: "Savings",
-    href: "/dashboard",
+    href: "/",
     icon: savings,
   },
   {
     name: "Payment",
-    href: "/dashboard",
+    href: "/",
     icon: payments,
   },
   {
     name: "Insights",
-    href: "/dashboard",
+    href: "/",
     icon: insights,
   },
 ];
@@ -52,12 +52,12 @@ const mainMenu = [
 const bottomMenu = [
   {
     name: "Settings",
-    href: "/dashboard",
+    href: "/",
     icon: Settings,
   },
   {
     name: "Support",
-    href: "/dashboard",
+    href: "/",
     icon: LifeBuoy,
   },
 ];
