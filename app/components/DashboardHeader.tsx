@@ -4,10 +4,11 @@ import target from "../assets/images/target.png";
 import savings from "../assets/images/savings.png";
 import payments from "../assets/images/payments.png";
 import insights from "../assets/images/insights.png";
+import Settings from "../assets/images/setting-2.png";
+import LifeBuoy from "../assets/images/lifebour.png";
 
 import {
-  Settings,
-  LifeBuoy,
+  
   LogOut,
   Menu,
   X,
@@ -152,16 +153,16 @@ export default function Sidebar() {
             <Image
               src={logo}
               alt="SafeNest logo"
-              className="h-9 w-9 object-contain"
+              className="h-13 w-13 object-contain"
               priority
             />
 
-            <span className="text-[18px] font-bold tracking-tight text-[#123b65]">
+            <span className="text-[20px] font-bold tracking-tight text-[#123b65]">
               Safe<span className="text-[#22a7a4]">Nest</span>
             </span>
           </Link>
 
-          <p className="mt-3 text-[10px] font-medium text-slate-600">
+          <p className="mt-3 text-[18px] font-medium text-[#1E293B]">
             Financial Serenity
           </p>
         </div>
@@ -183,7 +184,7 @@ export default function Sidebar() {
 </button>
 
         {/* ================= MAIN NAVIGATION ================= */}
-        <nav className="mt-8 flex flex-col gap-2">
+        <nav className="mt-8 flex flex-col gap-2 ">
           {mainMenu.map((item) => {
             const Icon = item.icon;
             const active = pathname === item.href;
@@ -196,7 +197,7 @@ export default function Sidebar() {
                 className={`
                   flex h-11 items-center gap-3
                   rounded-lg px-4
-                  text-[11px] font-medium
+                  text-[17px] font-medium
                   transition-all duration-200
 
                   ${
@@ -235,7 +236,7 @@ export default function Sidebar() {
                   className={`
                     flex h-11 items-center gap-3
                     rounded-lg px-4
-                    text-[11px] font-medium
+                    text-[18px] font-medium
                     transition-all duration-200
 
                     ${
@@ -245,10 +246,13 @@ export default function Sidebar() {
                     }
                   `}
                 >
-                  <Icon
-                    className="h-[17px] w-[17px] shrink-0"
-                    strokeWidth={2.4}
-                  />
+                  <Image
+  src={item.icon}
+  alt=""
+  width={18}
+  height={18}
+  className="h-[18px] w-[18px] object-contain"
+/>
 
                   <span>{item.name}</span>
                 </Link>
@@ -266,7 +270,7 @@ export default function Sidebar() {
               flex h-11 w-full
               items-center gap-3
               rounded-lg px-4
-              text-[11px] font-medium
+              text-[18px] font-medium
               text-[#123b65]
               transition
               hover:bg-slate-200
