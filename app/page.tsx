@@ -1,9 +1,9 @@
 import Hero from "./hero";
-import ProblemSection from "./problemSection";
-import StatsSection from "./statsSection";
-import HowItWorks from "./howItWorks";
-import WhyChoose from "./whyChoose";
-import Footer from "./foter";
+import ProblemSection from "./components/problemSection";
+import StatsSection from "./components/statsSection";
+import HowItWorks from "./components/howItWorks";
+import WhyChoose from "./components/whyChoose";
+import Footer from "./components/foter";
 import Headers from "./components/Header";
 
 export default function Home() {

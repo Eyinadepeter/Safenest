@@ -1,6 +1,7 @@
 const ACCOUNTS_KEY = "safenest-demo-accounts";
+const CURRENT_ACCOUNT_KEY = "safenest-demo-current-account";
 
-type DemoAccount = {
+export type DemoAccount = {
   fullName: string;
   email: string;
   password: string;
@@ -33,8 +34,31 @@ export function saveDemoAccount(account: DemoAccount) {
 }
 
 export function authenticateDemoAccount(email: string, password: string) {
-  return getAccounts().find(
+  const account = getAccounts().find(
     (account) =>
       account.email === email.trim().toLowerCase() && account.password === password
   );
+
+  if (account) {
+    localStorage.setItem(CURRENT_ACCOUNT_KEY, JSON.stringify(account));
+  }
+
+  return account;
+}
+
+export function getCurrentDemoAccount(): DemoAccount | null {
+  if (typeof window === "undefined") return null;
+
+  try {
+    const account = JSON.parse(localStorage.getItem(CURRENT_ACCOUNT_KEY) ?? "null");
+    return account && typeof account.email === "string" ? account : null;
+  } catch {
+    return null;
+  }
+}
+
+export function clearCurrentDemoAccount() {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem(CURRENT_ACCOUNT_KEY);
+  }
 }
