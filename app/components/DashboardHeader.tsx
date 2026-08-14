@@ -6,11 +6,6 @@ import payments from "../assets/images/payments.png";
 import insights from "../assets/images/insights.png";
 
 import {
-
-  Target,
-  PiggyBank,
-  CreditCard,
-  LineChart,
   Settings,
   LifeBuoy,
   LogOut,

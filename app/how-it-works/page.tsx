@@ -5,8 +5,8 @@ import StepBlock from "../stepBlock";
 import HighlightCard from "../highlightCard";
 import GoalCalculatorForm from "../goalCalculatorForm";
 import InfoCard from "../infoCard";
-import StatsSection from "../statsSection";
-import Footer from "../foter";
+import StatsSection from "../components/statsSection";
+import Footer from "../components/foter";
 
 const faqs = [
   {

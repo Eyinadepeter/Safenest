@@ -1,13 +1,13 @@
 import { Trophy } from "lucide-react";
 import Navbar from "../navbar";
 import PageHeroBanner from "../pageHeroBanner";
-import ProblemSection from "../problemSection";
-import WhyChoose from "../whyChoose";
+import ProblemSection from "../components/problemSection";
+import WhyChoose from "../components/whyChoose";
 import StepBlock from "../stepBlock";
 import HighlightCard from "../highlightCard";
 import InfoCard from "../infoCard";
-import StatsSection from "../statsSection";
-import Footer from "../foter";
+import StatsSection from "../components/statsSection";
+import Footer from "../components/foter";
 
 const faqs = [
   {
