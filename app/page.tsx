@@ -11,7 +11,6 @@ export default function Home() {
   return (
     <>
       <Headers />
-      <Navbar />
       <Hero />
       <ProblemSection />
       <WhyChoose />
