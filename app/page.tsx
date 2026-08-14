@@ -1,3 +1,4 @@
+import Navbar from "./navbar";
 import Hero from "./hero";
 import ProblemSection from "./components/problemSection";
 import StatsSection from "./components/statsSection";
@@ -9,12 +10,13 @@ import Headers from "./components/Header";
 export default function Home() {
   return (
     <>
-      <Headers/>
+      <Headers />
+      <Navbar />
       <Hero />
       <ProblemSection />
+      <WhyChoose />
       <StatsSection />
       <HowItWorks />
-      <WhyChoose />
       <Footer />
     </>
   );
