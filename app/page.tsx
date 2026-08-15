@@ -1,4 +1,3 @@
-import Navbar from "./navbar";
 import Hero from "./hero";
 import ProblemSection from "./components/problemSection";
 import StatsSection from "./components/statsSection";

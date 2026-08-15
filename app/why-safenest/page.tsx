@@ -1,5 +1,4 @@
 import { Trophy } from "lucide-react";
-import Navbar from "../navbar";
 import PageHeroBanner from "../pageHeroBanner";
 import ProblemSection from "../components/problemSection";
 import WhyChoose from "../components/whyChoose";
