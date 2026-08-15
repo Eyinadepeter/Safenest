@@ -29,7 +29,7 @@ const faqs = [
 export default function WhySafeNestPage() {
   return (
     <>
-      <Navbar />
+      
 
       <PageHeroBanner
         eyebrow="Why SafeNest"

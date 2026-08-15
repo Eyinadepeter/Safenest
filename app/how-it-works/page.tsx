@@ -28,7 +28,7 @@ const faqs = [
 export default function HowItWorksPage() {
   return (
     <>
-      <Navbar />
+    
 
       <PageHeroBanner
         eyebrow="How it works"
