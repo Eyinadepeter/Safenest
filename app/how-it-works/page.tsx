@@ -1,5 +1,4 @@
 import { ShieldCheck, Bell, Trophy } from "lucide-react";
-import Navbar from "../navbar";
 import PageHeroBanner from "../pageHeroBanner";
 import StepBlock from "../stepBlock";
 import HighlightCard from "../highlightCard";

@@ -29,22 +29,22 @@ const QUICK_ACTIONS = [
   {
     icon: PlusCircle,
     label: "Create Goal",
-    href: "/goals/new",
+    href: "",
   },
   {
     icon: Wallet,
     label: "Add Contribution",
-    href: "/payment",
+    href: "",
   },
   {
     icon: BarChart3,
     label: "View Budget",
-    href: "/insights",
+    href: "",
   },
   {
     icon: CalendarDays,
     label: "View Calendar",
-    href: "/calendar",
+    href: "",
   },
 ];
 
