@@ -147,7 +147,7 @@ export default function ConnectBankPage() {
               </button>
 
               <Link
-                href="/settings"
+                href=""
                 aria-label="Settings"
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
               >
