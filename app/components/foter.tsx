@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import logo from "../assets/images/logo.png";
 
 const columns = [
   {
@@ -33,16 +34,18 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
           <div>
             <Link href="/" className="flex items-center gap-2">
-              <Image
-                src="/images/logo-icon.png"
-                alt="SafeNest"
-                width={32}
-                height={32}
-                className="h-8 w-8"
-              />
-              <span className="text-lg font-bold text-navy">
-                Safe<span className="text-teal-dark">Nest</span>
-              </span>
+             <div className="flex items-center gap-2">
+                       <Image
+            src={logo}
+            alt="SafeNest logo"
+            className="h-10 w-10 object-contain"
+            priority
+          />
+
+          <span className="text-2xl font-bold tracking-tight text-[#123b65]">
+            Safe<span className="text-[#22a7a4]">Nest</span>
+          </span>
+                     </div>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/90">
               Your financial accountability partner. We help you plan, track,

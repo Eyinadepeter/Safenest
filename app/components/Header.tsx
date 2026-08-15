@@ -10,8 +10,16 @@ function Header() {
        {/* ---------------- Header ---------------- */}
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
         <div className="flex items-center gap-2">
-          <Image src={logo} alt="SafeNest logo" className="h-8 w-8" priority />
-          <span className="text-base font-bold text-slate-800">SafeNest</span>
+          <Image
+            src={logo}
+            alt="SafeNest logo"
+            className="h-10 w-10 object-contain"
+            priority
+          />
+
+          <span className="text-2xl font-bold tracking-tight text-[#123b65]">
+            Safe<span className="text-[#22a7a4]">Nest</span>
+          </span>
         </div>
 
         <nav className="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
