@@ -182,7 +182,7 @@ export default function SignUpPage() {
           <p className="text-xs text-slate-500" style={{ fontFamily: "Inter, sans-serif" }}>
             Already have an account?{" "}
             <a
-              href="/signin"
+              href="/login"
               className="font-medium text-teal-700 hover:underline"
               style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
             >
