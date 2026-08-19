@@ -1,12 +1,13 @@
 import { Trophy } from "lucide-react";
-import PageHeroBanner from "../pageHeroBanner";
+import PageHeroBanner from "../components/pageHeroBanner";
 import ProblemSection from "../components/problemSection";
 import WhyChoose from "../components/whyChoose";
-import StepBlock from "../stepBlock";
-import HighlightCard from "../highlightCard";
-import InfoCard from "../infoCard";
+import StepBlock from "../components/stepBlock";
+import HighlightCard from "../components/highlightCard";
+import InfoCard from "../components/infoCard";
 import StatsSection from "../components/statsSection";
 import Footer from "../components/foter";
+import Header from "../components/Header";
 
 const faqs = [
   {
@@ -30,7 +31,7 @@ export default function WhySafeNestPage() {
   return (
     <>
       
-
+    <Header/>
       <PageHeroBanner
         eyebrow="Why SafeNest"
         heading="Banks store money. Apps track spending. We help you actually get there"

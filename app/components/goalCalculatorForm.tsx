@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { calculateGoalPlan, type GoalPlanResult } from "./lib/goals";
+import { calculateGoalPlan, type GoalPlanResult } from "../lib/goals";
 
 const goalFormSchema = z.object({
   goalName: z.string().min(2, "Give your goal a name"),

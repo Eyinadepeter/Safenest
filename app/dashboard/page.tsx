@@ -21,7 +21,7 @@ import {
 import { getCurrentDemoAccount, DemoAccount } from "../lib/demo-auth";
 import DashboardHeader from "../components/DashboardHeader";
 import GoalCard from "../goalCard";
-import StatCard from "../statCard";
+import StatCard from "../components/statCard";
 import logo from "../assets/images/logo.png";
 
 const QUICK_ACTIONS = [

@@ -1,11 +1,12 @@
 import { ShieldCheck, Bell, Trophy } from "lucide-react";
-import PageHeroBanner from "../pageHeroBanner";
-import StepBlock from "../stepBlock";
-import HighlightCard from "../highlightCard";
-import GoalCalculatorForm from "../goalCalculatorForm";
-import InfoCard from "../infoCard";
+import PageHeroBanner from "../components/pageHeroBanner";
+import StepBlock from "../components/stepBlock";
+import HighlightCard from "../components/highlightCard";
+import GoalCalculatorForm from "../components/goalCalculatorForm";
+import InfoCard from "../components/infoCard";
 import StatsSection from "../components/statsSection";
 import Footer from "../components/foter";
+import Header from "../components/Header";
 
 const faqs = [
   {
@@ -29,6 +30,7 @@ export default function HowItWorksPage() {
   return (
     <>
     
+    <Header/>
 
       <PageHeroBanner
         eyebrow="How it works"

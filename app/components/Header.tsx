@@ -9,7 +9,7 @@ function Header() {
     <div>
        {/* ---------------- Header ---------------- */}
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <div className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <Image
             src={logo}
             alt="SafeNest logo"
@@ -20,11 +20,11 @@ function Header() {
           <span className="text-2xl font-bold tracking-tight text-[#123b65]">
             Safe<span className="text-[#22a7a4]">Nest</span>
           </span>
-        </div>
+        </Link>
 
         <nav className="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
-          <Link href="#" className="hover:text-teal-700 text-[#123b65]">How it works</Link>
-          <Link href="#why" className="hover:text-teal-700 text-[#123b65]">Why SafeNest</Link>
+          <Link href="/how-it-works" className="hover:text-teal-700 text-[#123b65]">How it works</Link>
+          <Link href="/why-safenest" className="hover:text-teal-700 text-[#123b65]">Why SafeNest</Link>
           <Link href="#" className="hover:text-teal-700 text-[#123b65]">Our Values</Link>
         </nav>
 
