@@ -13,6 +13,7 @@ import logo from "../assets/images/logo.png";
 import googleIcon from "../assets/images/googleicon.png";
 import facebookIcon from "../assets/images/facebookicon.png";
 import appleIcon from "../assets/images/appleIcon.png";
+import Link from "next/link";
 
 // ---------------- Validation schema ----------------
 const signUpSchema = z
@@ -166,13 +167,13 @@ const [showConfirm, setShowConfirm] = useState(false);
         <div className="flex justify-end px-6 pt-6 sm:px-12">
           <p className="text-xs text-slate-500" style={{ fontFamily: "Inter, sans-serif" }}>
             Already have an account?{" "}
-            <a
-              href="/login"
+            <Link
+              href="/signin"
               className="font-medium text-teal-700 hover:underline"
               style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
             >
               Sign in
-            </a>
+            </Link>
           </p>
         </div>
 

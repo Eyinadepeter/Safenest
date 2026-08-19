@@ -35,7 +35,7 @@ export default function Hero() {
 
           <div className="mt-8 flex items-center justify-center gap-4">
             <Link
-              href="/get-started"
+              href="/signup"
               className="rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-white transition hover:bg-navy/90"
             >
               Start Planning
