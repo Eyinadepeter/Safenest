@@ -28,7 +28,7 @@ const QUICK_ACTIONS = [
   { icon: PlusCircle, label: "Create Goal", href: "" },
   { icon: Wallet, label: "Add Contribution", href: "" },
   { icon: BarChart3, label: "View Budget", href: "" },
-  { icon: CalendarDays, label: "View Calendar", href: "" },
+  { icon: CalendarDays, label: "View Calendar", href: "./financial-calendar" },
 ];
 
 // TODO: replace with real goals data once the goals API is wired up
