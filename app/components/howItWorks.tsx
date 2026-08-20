@@ -1,4 +1,6 @@
 import { Plus, TrendingUp, ShieldCheck } from "lucide-react";
+import Image from "next/image";
+import growthChart from "../assets/images/growth-chart-illustration.png";
 
 const steps = [
   {
@@ -24,36 +26,18 @@ const steps = [
   },
 ];
 
-const barHeights = [30, 50, 68, 85, 100];
-
 export default function HowItWorks() {
   return (
     <section className="mx-auto max-w-[1320px] px-6 pb-20 md:px-10">
       <div className="grid grid-cols-1 overflow-hidden rounded-3xl md:grid-cols-2">
         {/* Illustration */}
-        <div className="relative flex min-h-[360px] items-end overflow-hidden bg-gradient-to-br from-[#a9d8f7] to-[#d7f3ea] p-10">
-          <div className="pointer-events-none absolute inset-0">
-            <div className="absolute left-10 top-24 h-3 w-3 rounded-full bg-white/40" />
-            <div className="absolute left-16 top-32 h-2 w-2 rounded-full bg-white/40" />
-            <div className="absolute left-8 top-16 h-10 w-2 rotate-45 rounded-full bg-white/30" />
-            <div className="absolute left-16 top-8 h-14 w-2 rotate-45 rounded-full bg-white/30" />
-          </div>
-          <svg
-            viewBox="0 0 20 12"
-            className="pointer-events-none absolute right-8 top-10 h-10 w-16 text-navy"
-            fill="currentColor"
-          >
-            <path d="M10 0 L18 8 L14 8 L14 12 L6 12 L6 8 L2 8 Z" />
-          </svg>
-          <div className="relative z-10 flex w-full items-end justify-center gap-4">
-            {barHeights.map((h, i) => (
-              <div
-                key={i}
-                className="w-12 rounded-t-full bg-gradient-to-b from-[#0f8b8b] to-[#0a3d4a] md:w-14"
-                style={{ height: `${h}px` }}
-              />
-            ))}
-          </div>
+        <div className="relative flex min-h-[360px] items-center justify-center overflow-hidden bg-gradient-to-br from-[#a9d8f7] to-[#d7f3ea] p-6 md:p-10">
+          <Image
+            src={growthChart}
+            alt="Chart showing steady upward savings growth"
+            className="h-auto w-full max-w-lg object-contain"
+            priority
+          />
         </div>
 
         {/* Steps */}

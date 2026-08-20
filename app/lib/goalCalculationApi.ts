@@ -69,14 +69,31 @@ async function goalsApiFetch<T>(
 ): Promise<T> {
   const token = getAuthToken();
 
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...options.headers,
-    },
-  });
+  let response: Response;
+  try {
+    response = await fetch(`${API_BASE_URL}${path}`, {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...options.headers,
+      },
+    });
+  } catch {
+    // The browser throws a bare "Failed to fetch" TypeError when the
+    // request never gets a response at all — most commonly a CORS
+    // rejection (the backend not sending Access-Control-Allow-Origin for
+    // this origin), but also possible for DNS/connection failures or the
+    // Render free-tier service being asleep. This is a backend/deployment
+    // config issue, not something fixable from this file — surface a
+    // clearer message instead of the generic browser one.
+    throw new Error(
+      "Couldn't reach the SafeNest server. This usually means the API " +
+        "isn't reachable from this origin (a CORS setting on the backend) " +
+        "or the service is temporarily down — it's not something wrong " +
+        "with the form itself."
+    );
+  }
 
   if (!response.ok) {
     const errorBody = await response.json().catch(() => null);

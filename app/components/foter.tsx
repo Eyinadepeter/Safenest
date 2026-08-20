@@ -78,6 +78,13 @@ export default function Footer() {
           ))}
         </div>
       </div>
+
+      <div className="border-t border-white/15">
+        <div className="mx-auto flex max-w-[1320px] flex-col gap-3 px-6 py-6 text-sm text-white/80 md:flex-row md:items-center md:justify-between md:px-10">
+          <p>© 2026 SafeNest. All rights reserved.</p>
+          <p>We never hold or move your money</p>
+        </div>
+      </div>
     </footer>
   );
 }

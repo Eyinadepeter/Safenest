@@ -1,4 +1,4 @@
-import { ShieldCheck, Bell, Trophy } from "lucide-react";
+import { ShieldCheck, Bell } from "lucide-react";
 import PageHeroBanner from "../components/pageHeroBanner";
 import StepBlock from "../components/stepBlock";
 import HighlightCard from "../components/highlightCard";
@@ -7,6 +7,7 @@ import InfoCard from "../components/infoCard";
 import StatsSection from "../components/statsSection";
 import Footer from "../components/foter";
 import Header from "../components/Header";
+import goalAchievedBadge from "../assets/images/goal-achieved-badge.png";
 
 const faqs = [
   {
@@ -137,8 +138,7 @@ export default function HowItWorksPage() {
       <section className="mx-auto max-w-[1320px] px-6 pb-20 md:px-10">
         <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
           <HighlightCard
-            icon={Trophy}
-            iconTone="amber"
+            iconImage={goalAchievedBadge}
             title="Goal Achieved!"
             description="You saved ₦700,000 in 11 months. That's real discipline."
           />

@@ -1,8 +1,10 @@
-import { Eye, Radio } from "lucide-react";
+import { Eye } from "lucide-react";
+import Image from "next/image";
 import Header from "../components/Header";
 import PageHeroBanner from "../components/pageHeroBanner";
 import CoreValuesList from "../components/coreValuesList";
 import Footer from "../components/foter";
+import missionIcon from "../assets/images/mission-icon.png";
 
 const personalityTraits = [
   "Calm",
@@ -74,7 +76,11 @@ export default function OurValuesPage() {
 
           <div className="rounded-2xl bg-mint p-8">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white">
-              <Radio className="h-6 w-6 text-teal-dark" />
+              <Image
+                src={missionIcon}
+                alt=""
+                className="h-6 w-6 object-contain"
+              />
             </div>
             <h3 className="mt-5 text-lg font-bold text-navy">Our Mission</h3>
             <p className="mt-3 text-sm leading-relaxed text-navy/70">
