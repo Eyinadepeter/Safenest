@@ -65,7 +65,7 @@ function getAuthToken(): string | null {
 
 async function goalsApiFetch<T>(
   path: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T> {
   const token = getAuthToken();
 
@@ -80,25 +80,13 @@ async function goalsApiFetch<T>(
       },
     });
   } catch {
-    // The browser throws a bare "Failed to fetch" TypeError when the
-    // request never gets a response at all — most commonly a CORS
-    // rejection (the backend not sending Access-Control-Allow-Origin for
-    // this origin), but also possible for DNS/connection failures or the
-    // Render free-tier service being asleep. This is a backend/deployment
-    // config issue, not something fixable from this file — surface a
-    // clearer message instead of the generic browser one.
-    throw new Error(
-      "Couldn't reach the SafeNest server. This usually means the API " +
-        "isn't reachable from this origin (a CORS setting on the backend) " +
-        "or the service is temporarily down — it's not something wrong " +
-        "with the form itself."
-    );
+    throw new Error("Couldn't reach the SafeNest server.");
   }
 
   if (!response.ok) {
     const errorBody = await response.json().catch(() => null);
     throw new Error(
-      errorBody?.message || `Request failed with status ${response.status}`
+      errorBody?.message || `Request failed with status ${response.status}`,
     );
   }
 
@@ -112,7 +100,7 @@ async function goalsApiFetch<T>(
  * saving a goal. This is what "Calculate my Plan" calls.
  */
 export function simulateGoalScenario(
-  payload: SimulateGoalPayload
+  payload: SimulateGoalPayload,
 ): Promise<ScenarioResult> {
   return goalsApiFetch<ScenarioResult>("/goals/simulate", {
     method: "POST",
