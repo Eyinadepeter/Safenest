@@ -8,6 +8,7 @@ import InfoCard from "../components/infoCard";
 import StatsSection from "../components/statsSection";
 import Footer from "../components/foter";
 import Header from "../components/Header";
+import WhatWeStandFor from "../components/whatWeStandFor";
 
 const faqs = [
   {
@@ -42,15 +43,13 @@ export default function WhySafeNestPage() {
       <WhyChoose />
 
       {/*
-        TODO(design asset): the Figma export shows a wide photo here (a
-        couple holding house keys) between "Why Choose SafeNest?" and the
-        "Pay directly, then celebrate" block. Left as an empty placeholder,
-        same approach as the blank hero card on the landing page — drop the
-        real image in public/images/ and swap this div for an <Image />.
+        The Figma export also shows a photo here (a couple holding house
+        keys) that we don't have a source file for yet — flagged separately
+        from the "What we stand for" content below, which is what actually
+        fills this section per your last message. Drop the real image into
+        public/images/ later if it's still wanted alongside this.
       */}
-      <div className="mx-auto max-w-[1320px] px-6 md:px-10">
-        <div className="h-72 w-full rounded-3xl bg-mint md:h-96" />
-      </div>
+      <WhatWeStandFor />
 
       <section className="mx-auto max-w-[1320px] px-6 py-20 md:px-10">
         <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">

@@ -25,7 +25,7 @@ function Header() {
         <nav className="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
           <Link href="/how-it-works" className="hover:text-teal-700 text-[#123b65]">How it works</Link>
           <Link href="/why-safenest" className="hover:text-teal-700 text-[#123b65]">Why SafeNest</Link>
-          <Link href="#" className="hover:text-teal-700 text-[#123b65]">Our Values</Link>
+          <Link href="/our-values" className="hover:text-teal-700 text-[#123b65]">Our Values</Link>
         </nav>
 
         <div className="flex items-center gap-3">

@@ -4,7 +4,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { calculateGoalPlan, type GoalPlanResult } from "../lib/goals";
+import {
+  simulateGoalScenario,
+  type ScenarioResult,
+  type ContributionFrequency,
+} from "../lib/goalCalculationApi";
 
 const goalFormSchema = z.object({
   goalName: z.string().min(2, "Give your goal a name"),
@@ -17,13 +21,19 @@ const goalFormSchema = z.object({
     .refine((val) => new Date(val) > new Date(), {
       message: "Deadline must be in the future",
     }),
+  // The design's Step 1 checklist says "weekly or monthly, your call" — the
+  // API also accepts DAILY, but we only surface the two options the design
+  // calls for.
+  frequency: z.enum(["WEEKLY", "MONTHLY"] as const, {
+    message: "Choose how often you'll contribute",
+  }),
 });
 
 type GoalFormInput = z.input<typeof goalFormSchema>;
 type GoalFormValues = z.output<typeof goalFormSchema>;
 
 export default function GoalCalculatorForm() {
-  const [result, setResult] = useState<GoalPlanResult | null>(null);
+  const [result, setResult] = useState<ScenarioResult | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
@@ -32,21 +42,23 @@ export default function GoalCalculatorForm() {
     formState: { errors, isSubmitting },
   } = useForm<GoalFormInput, unknown, GoalFormValues>({
     resolver: zodResolver(goalFormSchema),
+    defaultValues: { frequency: "MONTHLY" },
   });
 
   const onSubmit = async (values: GoalFormValues) => {
     setSubmitError(null);
     setResult(null);
     try {
-      const plan = await calculateGoalPlan({
-        goalName: values.goalName,
+      // goalName isn't part of the simulate payload (simulate is a
+      // preview-only calculation, nothing is saved/named yet) — it's kept
+      // as a form field for the person's own context.
+      const plan = await simulateGoalScenario({
         targetAmount: values.targetAmount,
         deadline: values.deadline,
+        frequency: values.frequency as ContributionFrequency,
       });
       setResult(plan);
     } catch (err) {
-      // calculateGoalPlan is currently a stub (no backend endpoint yet),
-      // so this will always land here until it's wired up for real.
       setSubmitError(
         err instanceof Error ? err.message : "Something went wrong."
       );
@@ -100,6 +112,20 @@ export default function GoalCalculatorForm() {
         <p className="mt-1 text-xs text-red-600">{errors.deadline.message}</p>
       )}
 
+      <label className="mt-5 block text-sm font-bold text-navy">
+        Contribute
+        <select
+          {...register("frequency")}
+          className="mt-2 w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy focus:border-teal-dark focus:outline-none"
+        >
+          <option value="MONTHLY">Monthly</option>
+          <option value="WEEKLY">Weekly</option>
+        </select>
+      </label>
+      {errors.frequency && (
+        <p className="mt-1 text-xs text-red-600">{errors.frequency.message}</p>
+      )}
+
       <button
         type="submit"
         disabled={isSubmitting}
@@ -114,8 +140,15 @@ export default function GoalCalculatorForm() {
 
       {result && (
         <div className="mt-4 rounded-lg bg-white p-4 text-sm text-navy">
-          Save ₦{result.monthlyContribution.toLocaleString()} / month for{" "}
-          {result.monthsRemaining} months.
+          <p className="font-bold">
+            Save ₦{result.requiredContributionPerPeriod.toLocaleString()}{" "}
+            {result.frequency === "WEEKLY" ? "/ week" : "/ month"}
+          </p>
+          <p className="mt-1 text-navy/70">
+            {result.plan.periodsRemaining} contributions left ·{" "}
+            {result.plan.daysRemaining} days to go ·{" "}
+            {result.feasible ? "On track" : "Tight, but here's the plan"}
+          </p>
         </div>
       )}
     </form>
