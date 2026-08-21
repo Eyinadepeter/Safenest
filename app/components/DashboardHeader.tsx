@@ -34,7 +34,7 @@ const mainMenu = [
   },
   {
     name: "Savings",
-    href: "",
+    href: "./dashboard/savings",
     icon: savings,
   },
   {
