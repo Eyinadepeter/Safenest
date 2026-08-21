@@ -6,10 +6,10 @@ import {
   TrendingUp,
   ChevronDown,
 } from "lucide-react";
-import goal from "../../assets/images/goal.png";
-import wallet from "../../assets/images/wallet-money.png";
-import fire from "../../assets/images/fire.png";
-import logo from "../../assets/images/logo.png";
+import goal from "../assets/images/goal.png";
+import wallet from "../assets/images/wallet-money.png";
+import fire from "../assets/images/fire.png";
+import logo from "../assets/images/logo.png";
 
 import {
   AreaChart,
