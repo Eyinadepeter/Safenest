@@ -39,12 +39,12 @@ const mainMenu = [
   },
   {
     name: "Payment",
-    href: "./payment",
+    href: "",
     icon: payments,
   },
   {
     name: "Insights",
-    href: "",
+    href: "./insight",
     icon: insights,
   },
 ];
