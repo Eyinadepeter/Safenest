@@ -39,7 +39,7 @@ const mainMenu = [
   },
   {
     name: "Payment",
-    href: "",
+    href: "./payment",
     icon: payments,
   },
   {
