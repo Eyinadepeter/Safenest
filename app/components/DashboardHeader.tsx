@@ -29,7 +29,7 @@ const mainMenu = [
   },
   {
     name: "My Goals",
-    href: "",
+    href: "./mygoal",
     icon: target,
   },
   {
