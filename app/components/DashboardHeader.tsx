@@ -168,12 +168,13 @@ export default function Sidebar() {
         </div>
 
         {/* ================= NEW GOAL ================= */}
-        <button
-  type="button"
-  className="
-    mt-8 h-[50px] w-full rounded-lg
-    bg-[#173f6b]
-    text-[11px] font-medium text-white
+        <Link href="/create-goal" onClick={closeSidebar}>
+          <button
+            type="button"
+            className="
+              mt-8 h-[50px] w-full rounded-lg
+              bg-[#173f6b]
+              text-[11px] font-medium text-white
     transition
     hover:bg-[#16466f]
     shrink-0
@@ -181,7 +182,8 @@ export default function Sidebar() {
   "
 >
   New Goal
-</button>
+  </button>
+</Link>
 
         {/* ================= MAIN NAVIGATION ================= */}
         <nav className="mt-8 flex flex-col gap-2 ">
