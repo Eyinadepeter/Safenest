@@ -126,7 +126,7 @@ export default function GoalsPage() {
           className="text-slate-600 transition hover:text-[#12355B]"
           aria-label="Profile"
         >
-          <UserCircle size={20} />
+          <UserCircle size={20} /> 
         </button>
       </header>
 
