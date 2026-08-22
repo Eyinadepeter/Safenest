@@ -43,6 +43,50 @@ const goalSchema = z
 
 type GoalFormInput = z.input<typeof goalSchema>;
 type GoalValues = z.output<typeof goalSchema>;
+
+export type StoredGoal = GoalValues & { id: string; createdAt: string };
+
+const GOALS_KEY = "safenest_goals";
+
+/**
+ * Reads all saved goals from localStorage.
+ * Safe to call from the client; returns [] if nothing is stored yet
+ * or if called during SSR (no `window`).
+ */
+export function getStoredGoals(): StoredGoal[] {
+  if (typeof window === "undefined") return [];
+  try {
+    return JSON.parse(localStorage.getItem(GOALS_KEY) || "[]");
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Appends a new goal to localStorage and returns the stored record
+ * (with generated id + createdAt).
+ *
+ * TODO: replace with a real API call once the goals module
+ * controller/DTO are available, e.g.
+ * await fetch(`${API_BASE_URL}/goals`, {
+ *   method: "POST",
+ *   headers: { Authorization: `Bearer ${getToken()}`, "Content-Type": "application/json" },
+ *   body: JSON.stringify(values),
+ * });
+ */
+function saveGoal(values: GoalValues): StoredGoal {
+  const existing = getStoredGoals();
+
+  const newGoal: StoredGoal = {
+    ...values,
+    id: crypto.randomUUID(),
+    createdAt: new Date().toISOString(),
+  };
+
+  localStorage.setItem(GOALS_KEY, JSON.stringify([...existing, newGoal]));
+  return newGoal;
+}
+
 function formatNaira(amount: number) {
   return `₦${Math.max(0, Math.round(amount)).toLocaleString("en-NG")}`;
 }
@@ -51,18 +95,18 @@ export default function NewGoalPage() {
   const router = useRouter();
 
   const {
-  register,
-  handleSubmit,
-  watch,
-  formState: { errors, isSubmitting },
-} = useForm<GoalFormInput, any, GoalValues>({
-  resolver: zodResolver(goalSchema),
-  mode: "onBlur",
-  defaultValues: {
-    currentAmount: 0,
-    frequency: "Monthly",
-  },
-});
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm<GoalFormInput, any, GoalValues>({
+    resolver: zodResolver(goalSchema),
+    mode: "onBlur",
+    defaultValues: {
+      currentAmount: 0,
+      frequency: "Monthly",
+    },
+  });
 
   const target = watch("targetAmount");
   const current = watch("currentAmount");
@@ -90,22 +134,14 @@ export default function NewGoalPage() {
   }, [target, current, deadline]);
 
   const onSubmit = async (values: GoalValues) => {
-    // TODO: replace with your actual goals endpoint once the goals
-    // module controller/DTO are available, e.g.
-    // await fetch(`${API_BASE_URL}/goals`, {
-    //   method: "POST",
-    //   headers: { Authorization: `Bearer ${getToken()}`, "Content-Type": "application/json" },
-    //   body: JSON.stringify(values),
-    // });
-    await new Promise((r) => setTimeout(r, 600));
-    console.log("New goal", values);
-    router.push("/dashboard");
+    saveGoal(values);
+    router.push("/mygoal");
   };
 
   return (
     <>
-              <DashboardHeader />
-      
+      <DashboardHeader />
+
       <div className="min-h-screen w-full bg-slate-50 px-6 py-6 pt-20 sm:px-10 lg:pl-[calc(250px+2.5rem)] lg:pt-6">
         {/* Header */}
         <div className="flex items-start justify-between">
@@ -345,42 +381,40 @@ export default function NewGoalPage() {
             </div>
           </div>
         </form>
-         {/* ================= FOOTER ================= */}
-                <footer className="mt-12 border-t border-slate-200 py-6">
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src={logo}
-                      alt="SafeNest logo"
-                      className="h-6 w-6 object-contain"
-                      priority
-                    />
-                    <span className="text-base font-bold tracking-tight text-[#123b65]">
-                      Safe<span className="text-[#22a7a4]">Nest</span>
-                    </span>
-                  </div>
-      
-                  <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <p className="text-xs text-slate-500">
-                      Funds remain with licensed financial institutions. SafeNest does
-                      not hold user funds.
-                    </p>
-      
-                    <nav className="flex items-center gap-6 text-xs font-medium text-[#12355B]">
-                      <Link href="/security" className="transition hover:text-teal-700">
-                        Security
-                      </Link>
-                      <Link href="/privacy" className="transition hover:text-teal-700">
-                        Privacy Policy
-                      </Link>
-                      <Link href="/terms" className="transition hover:text-teal-700">
-                        Terms of service
-                      </Link>
-                    </nav>
-                  </div>
-                </footer>
-        
+        {/* ================= FOOTER ================= */}
+        <footer className="mt-12 border-t border-slate-200 py-6">
+          <div className="flex items-center gap-2">
+            <Image
+              src={logo}
+              alt="SafeNest logo"
+              className="h-6 w-6 object-contain"
+              priority
+            />
+            <span className="text-base font-bold tracking-tight text-[#123b65]">
+              Safe<span className="text-[#22a7a4]">Nest</span>
+            </span>
+          </div>
+
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-xs text-slate-500">
+              Funds remain with licensed financial institutions. SafeNest does
+              not hold user funds.
+            </p>
+
+            <nav className="flex items-center gap-6 text-xs font-medium text-[#12355B]">
+              <Link href="/security" className="transition hover:text-teal-700">
+                Security
+              </Link>
+              <Link href="/privacy" className="transition hover:text-teal-700">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="transition hover:text-teal-700">
+                Terms of service
+              </Link>
+            </nav>
+          </div>
+        </footer>
       </div>
-      
     </>
   );
 }

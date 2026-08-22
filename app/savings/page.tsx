@@ -87,14 +87,16 @@ export default function SavingsPage() {
             with your financial serenity plan.
           </p>
         </div>
-
-        <button
+      <Link href="/add-contribution" >
+      <button
           type="button"
-          className="flex shrink-0 items-center gap-2 rounded-lg bg-[#12355B] px-4 py-2.5 text-sm font-semibold text-white transition"
+          className="flex shrink-0 items-center cursor-pointer gap-2 rounded-lg bg-[#12355B] px-4 py-2.5 text-sm font-semibold text-white transition"
         >
           <Plus size={16} />
           Add Manual Contribution
         </button>
+      </Link>
+        
       </div>
 
       {/* Stats row */}
