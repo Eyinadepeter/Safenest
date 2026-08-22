@@ -25,7 +25,7 @@ import StatCard from "../components/statCard";
 import logo from "../assets/images/logo.png";
 
 const QUICK_ACTIONS = [
-  { icon: PlusCircle, label: "Create Goal", href: "" },
+  { icon: PlusCircle, label: "Create Goal", href: "/dashboard/goals/new" },
   { icon: Wallet, label: "Add Contribution", href: "" },
   { icon: BarChart3, label: "View Budget", href: "" },
   { icon: CalendarDays, label: "View Calendar", href: "./financial-calendar" },

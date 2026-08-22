@@ -1,15 +1,14 @@
 "use client";
-import homeIcon from "../assets/images/home.png";
-import target from "../assets/images/target.png";
-import savings from "../assets/images/savings.png";
-import payments from "../assets/images/payments.png";
-import insights from "../assets/images/insights.png";
-import Settings from "../assets/images/setting-2.png";
-import LifeBuoy from "../assets/images/lifebour.png";
+import homeIcon from "../assets/images/nav-home.png";
+import target from "../assets/images/nav-my-goals.png";
+import savings from "../assets/images/nav-savings.png";
+import payments from "../assets/images/nav-payment.png";
+import insights from "../assets/images/nav-insights.png";
+import Settings from "../assets/images/nav-settings.png";
+import LifeBuoy from "../assets/images/nav-support.png";
+import LogoutIcon from "../assets/images/nav-logout.png";
 
 import {
-  
-  LogOut,
   Menu,
   X,
 } from "lucide-react";
@@ -29,7 +28,7 @@ const mainMenu = [
   },
   {
     name: "My Goals",
-    href: "",
+    href: "/dashboard/goals/new",
     icon: target,
   },
   {
@@ -168,10 +167,11 @@ export default function Sidebar() {
         </div>
 
         {/* ================= NEW GOAL ================= */}
-        <button
-  type="button"
+        <Link
+  href="/dashboard/goals/new"
+  onClick={closeSidebar}
   className="
-    mt-8 h-[50px] w-full rounded-lg
+    mt-8 flex h-[50px] w-full items-center justify-center rounded-lg
     bg-[#173f6b]
     text-[11px] font-medium text-white
     transition
@@ -181,7 +181,7 @@ export default function Sidebar() {
   "
 >
   New Goal
-</button>
+</Link>
 
         {/* ================= MAIN NAVIGATION ================= */}
         <nav className="mt-8 flex flex-col gap-2 ">
@@ -276,9 +276,12 @@ export default function Sidebar() {
               hover:bg-slate-200
             "
           >
-            <LogOut
-              className="h-[17px] w-[17px]"
-              strokeWidth={2.4}
+            <Image
+              src={LogoutIcon}
+              alt=""
+              width={17}
+              height={17}
+              className="h-[17px] w-[17px] object-contain"
             />
 
             <span>Logout</span>
