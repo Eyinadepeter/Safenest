@@ -41,8 +41,8 @@ const goalSchema = z
     path: ["deadline"],
   });
 
-type GoalValues = z.infer<typeof goalSchema>;
-
+type GoalFormInput = z.input<typeof goalSchema>;
+type GoalValues = z.output<typeof goalSchema>;
 function formatNaira(amount: number) {
   return `₦${Math.max(0, Math.round(amount)).toLocaleString("en-NG")}`;
 }
@@ -51,18 +51,18 @@ export default function NewGoalPage() {
   const router = useRouter();
 
   const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors, isSubmitting },
-  } = useForm<GoalValues>({
-    resolver: zodResolver(goalSchema),
-    mode: "onBlur",
-    defaultValues: {
-      currentAmount: 0,
-      frequency: "Monthly",
-    },
-  });
+  register,
+  handleSubmit,
+  watch,
+  formState: { errors, isSubmitting },
+} = useForm<GoalFormInput, any, GoalValues>({
+  resolver: zodResolver(goalSchema),
+  mode: "onBlur",
+  defaultValues: {
+    currentAmount: 0,
+    frequency: "Monthly",
+  },
+});
 
   const target = watch("targetAmount");
   const current = watch("currentAmount");
