@@ -27,7 +27,7 @@ import logo from "../assets/images/logo.png";
 const QUICK_ACTIONS = [
   { icon: PlusCircle, label: "Create Goal", href: "./create-goal" },
   { icon: Wallet, label: "Add Contribution", href: "" },
-  { icon: BarChart3, label: "View Budget", href: "" },
+  { icon: BarChart3, label: "View Budget", href: "/payment" },
   { icon: CalendarDays, label: "View Calendar", href: "./dashboard/financial-calendar" },
 ];
 

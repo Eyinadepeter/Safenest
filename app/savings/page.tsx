@@ -87,7 +87,7 @@ export default function SavingsPage() {
             with your financial serenity plan.
           </p>
         </div>
-      <Link href="/add-contribution" >
+      <Link href="/trssaction" >
       <button
           type="button"
           className="flex shrink-0 items-center cursor-pointer gap-2 rounded-lg bg-[#12355B] px-4 py-2.5 text-sm font-semibold text-white transition"
