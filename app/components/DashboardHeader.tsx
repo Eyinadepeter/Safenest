@@ -266,7 +266,8 @@ export default function Sidebar() {
           <div className="my-5 border-t border-[#7894b3]" />
 
           {/* Logout */}
-          <button
+          <Link href="/signin">
+           <button
             type="button"
             className="
               flex h-11 w-full
@@ -285,6 +286,9 @@ export default function Sidebar() {
 
             <span>Logout</span>
           </button>
+          
+          </Link>
+         
         </div>
       </aside>
     </>
