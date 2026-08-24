@@ -58,12 +58,12 @@ const GOALS = [
   },
 ];
 
-const TOTAL_TARGET_VALUE = 34000000;
-const TOTAL_PROGRESS_VALUE = 1150000;
-const TOTAL_PROGRESS_PCT = 65; // visual only — swap for a computed value once real goals exist
-const ACTIVE_GOALS_COUNT = 3;
-const GOALS_AT_RISK_COUNT = 1;
-const AMOUNT_TO_TARGET = "₦15,000"; // amount left on the nearest upcoming goal
+const TOTAL_TARGET_VALUE = 0;
+const TOTAL_PROGRESS_VALUE = 0;
+const TOTAL_PROGRESS_PCT = 0; // visual only — swap for a computed value once real goals exist
+const ACTIVE_GOALS_COUNT = 0;
+const GOALS_AT_RISK_COUNT = 0;
+const AMOUNT_TO_TARGET = "₦0"; // amount left on the nearest upcoming goal
 
 function getInitial(fullName?: string) {
   return fullName?.trim()?.[0]?.toUpperCase() ?? "U";

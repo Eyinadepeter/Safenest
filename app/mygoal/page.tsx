@@ -1,27 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
 import { Search, Plus, MoreVertical, PiggyBank } from "lucide-react";
 import Link from "next/link";
 import DashboardHeader from "../components/DashboardHeader";
 import { getStoredGoals, formatNaira, type StoredGoal } from "../lib/goals";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["500", "600"],
-  variable: "--font-fraunces",
-});
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-inter",
-});
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-mono",
-});
 
 /* ---------------------------------------------------------------- */
 /* Design tokens                                                     */
@@ -297,7 +280,7 @@ export default function GoalsPage() {
 
   return (
     <div
-      className={`${fraunces.variable} ${inter.variable} ${plexMono.variable} min-h-screen w-full overflow-x-hidden font-[family-name:var(--font-inter)]`}
+      className="min-h-screen w-full overflow-x-hidden font-[Arial]"
       style={{ backgroundColor: COLOR.mist }}
     >
       <DashboardHeader />
@@ -307,13 +290,13 @@ export default function GoalsPage() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p
-              className="font-[family-name:var(--font-mono)] text-[10px] font-medium uppercase tracking-[0.22em]"
+              className="font-[Arial] text-[10px] font-medium uppercase tracking-[0.22em]"
               style={{ color: COLOR.teal }}
             >
               Savings overview
             </p>
             <h1
-              className="mt-1 font-[family-name:var(--font-fraunces)] text-[28px] font-semibold leading-tight sm:text-3xl"
+              className="mt-1 font-[Arial] text-[28px] font-semibold leading-tight sm:text-3xl"
               style={{ color: COLOR.navy }}
             >
               My Goals
@@ -332,13 +315,13 @@ export default function GoalsPage() {
           {summaryItems.map((item) => (
             <div key={item.label} className="px-5 py-5" style={{ borderColor: COLOR.line }}>
               <p
-                className="font-[family-name:var(--font-inter)] text-[10px] font-medium uppercase tracking-[0.14em]"
+                className="font-[Arial] text-[10px] font-medium uppercase tracking-[0.14em]"
                 style={{ color: COLOR.slate }}
               >
                 {item.label}
               </p>
               <p
-                className="mt-2 font-[family-name:var(--font-mono)] text-xl font-semibold sm:text-2xl"
+                className="mt-2 font-[Arial] text-xl font-semibold sm:text-2xl"
                 style={{ color: COLOR.ink }}
               >
                 {item.value}
@@ -367,7 +350,7 @@ export default function GoalsPage() {
             />
           </div>
 
-          <div className="flex w-full flex-wrap items-center gap-2 xl:w-auto">
+          <div className="flex w-full flex-wrap items-center gap-2 xl:w-auto ">
             {FILTERS.map((filter) => {
               const active = activeFilter === filter;
               return (
@@ -375,7 +358,7 @@ export default function GoalsPage() {
                   key={filter}
                   type="button"
                   onClick={() => setActiveFilter(filter)}
-                  className="rounded-full px-4 py-2.5 text-[9px] font-semibold transition"
+                  className="rounded-2xl px-10 py-4 text-[10px] font-semibold transition"
                   style={
                     active
                       ? { backgroundColor: COLOR.navy, color: "#fff" }
@@ -418,7 +401,7 @@ export default function GoalsPage() {
                 <PiggyBank size={20} style={{ color: COLOR.teal }} />
               </div>
               <p
-                className="font-[family-name:var(--font-fraunces)] text-base font-semibold"
+                className="font-[Arial] text-base font-semibold"
                 style={{ color: COLOR.ink }}
               >
                 {goals.length === 0 ? "Start your first goal" : "No goals match"}
@@ -488,14 +471,14 @@ export default function GoalsPage() {
                     <CategoryTag category={goal.category} />
 
                     <p
-                      className="font-[family-name:var(--font-mono)] text-[9px] font-semibold"
+                      className="font-[Arial] text-[9px] font-semibold"
                       style={{ color: COLOR.ink }}
                     >
                       {goal.target}
                     </p>
 
                     <p
-                      className="font-[family-name:var(--font-mono)] text-[9px] font-semibold"
+                      className="font-[Arial] text-[9px] font-semibold"
                       style={{ color: COLOR.ink }}
                     >
                       {goal.saved}
@@ -503,7 +486,7 @@ export default function GoalsPage() {
 
                     <div className="flex min-w-0 items-center gap-2">
                       <span
-                        className="w-8 shrink-0 font-[family-name:var(--font-mono)] text-[8px] font-semibold"
+                        className="w-8 shrink-0 font-[Arial] text-[8px] font-semibold"
                         style={{ color: COLOR.ink }}
                       >
                         {goal.progress}%
@@ -574,7 +557,7 @@ export default function GoalsPage() {
                           Target
                         </p>
                         <p
-                          className="mt-1 font-[family-name:var(--font-mono)] text-[9px] font-semibold sm:text-[10px]"
+                          className="mt-1 font-[Arial] text-[9px] font-semibold sm:text-[10px]"
                           style={{ color: COLOR.ink }}
                         >
                           {goal.target}
@@ -586,7 +569,7 @@ export default function GoalsPage() {
                           Saved
                         </p>
                         <p
-                          className="mt-1 font-[family-name:var(--font-mono)] text-[9px] font-semibold sm:text-[10px]"
+                          className="mt-1 font-[Arial] text-[9px] font-semibold sm:text-[10px]"
                           style={{ color: COLOR.ink }}
                         >
                           {goal.saved}
@@ -612,7 +595,7 @@ export default function GoalsPage() {
                           Progress
                         </span>
                         <span
-                          className="font-[family-name:var(--font-mono)] text-[8px] font-semibold"
+                          className="font-[Arial] text-[8px] font-semibold"
                           style={{ color: COLOR.ink }}
                         >
                           {goal.progress}%
@@ -645,7 +628,7 @@ export default function GoalsPage() {
             </div>
             <div>
               <p
-                className="font-[family-name:var(--font-fraunces)] text-[9px] font-semibold"
+                className="font-[Arial] text-[9px] font-semibold"
                 style={{ color: COLOR.navy }}
               >
                 SafeNest
