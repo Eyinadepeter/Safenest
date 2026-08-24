@@ -1,15 +1,14 @@
 "use client";
-import homeIcon from "../assets/images/home.png";
-import target from "../assets/images/target.png";
-import savings from "../assets/images/savings.png";
-import payments from "../assets/images/payments.png";
-import insights from "../assets/images/insights.png";
-import Settings from "../assets/images/setting-2.png";
-import LifeBuoy from "../assets/images/lifebour.png";
+import homeIcon from "../assets/images/nav-home.png";
+import target from "../assets/images/nav-my-goals.png";
+import savings from "../assets/images/nav-savings.png";
+import payments from "../assets/images/nav-payment.png";
+import insights from "../assets/images/nav-insights.png";
+import Settings from "../assets/images/nav-settings.png";
+import LifeBuoy from "../assets/images/nav-support.png";
+import LogoutIcon from "../assets/images/nav-logout.png";
 
 import {
-  
-  LogOut,
   Menu,
   X,
 } from "lucide-react";
@@ -52,7 +51,7 @@ const mainMenu = [
 const bottomMenu = [
   {
     name: "Settings",
-    href: "",
+    href: "/settings",
     icon: Settings,
   },
   {
@@ -278,9 +277,12 @@ export default function Sidebar() {
               hover:bg-slate-200
             "
           >
-            <LogOut
-              className="h-[17px] w-[17px]"
-              strokeWidth={2.4}
+            <Image
+              src={LogoutIcon}
+              alt=""
+              width={17}
+              height={17}
+              className="h-[17px] w-[17px] object-contain"
             />
 
             <span>Logout</span>
