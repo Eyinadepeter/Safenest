@@ -20,6 +20,7 @@ export interface UserProfile {
   email: string;
   phone: string;
   fullName: string;
+  avatarUrl?: string | null;
   status: string;
   createdAt: string;
   updatedAt: string;
@@ -129,4 +130,85 @@ export function updateNotificationSettings(
     method: "PUT",
     body: JSON.stringify(payload),
   });
+}
+
+// ============================================================================
+// Newer endpoints (photo, 2FA, connected bank, delete account) — types and
+// shapes match the confirmed backend contract, but the actual network calls
+// are deliberately NOT wired up yet, per instruction to hold off on backend
+// integration for these. Each function below is a documented stub; swapping
+// it for the real settingsApiFetch call (pattern shown in the functions
+// above) is a self-contained change when that's ready.
+// ============================================================================
+
+export interface TwoFactorSetup {
+  qrCodeDataUrl: string;
+  manualEntryKey: string;
+}
+
+export interface BankAccount {
+  id: string;
+  provider: string;
+  accountName: string;
+  accountNumber: string;
+  bankName: string;
+  currency: string;
+  status: string;
+  lastSyncedAt: string;
+  createdAt: string;
+}
+
+/** POST /users/me/avatar — multipart/form-data, field "file". STUB. */
+export async function uploadAvatar(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  file: File
+): Promise<UserProfile> {
+  throw new Error("uploadAvatar is not wired up yet.");
+}
+
+/** DELETE /users/me/avatar. STUB. */
+export async function removeAvatar(): Promise<UserProfile> {
+  throw new Error("removeAvatar is not wired up yet.");
+}
+
+/** POST /auth/2fa/setup. STUB. */
+export async function setupTwoFactor(): Promise<TwoFactorSetup> {
+  throw new Error("setupTwoFactor is not wired up yet.");
+}
+
+/** POST /auth/2fa/enable — { code }. STUB. */
+export async function enableTwoFactor(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  code: string
+): Promise<{ message: string }> {
+  throw new Error("enableTwoFactor is not wired up yet.");
+}
+
+/** POST /auth/2fa/disable — { password }. STUB. */
+export async function disableTwoFactor(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  password: string
+): Promise<{ message: string }> {
+  throw new Error("disableTwoFactor is not wired up yet.");
+}
+
+/** GET /bank-accounts. STUB. */
+export async function listBankAccounts(): Promise<BankAccount[]> {
+  throw new Error("listBankAccounts is not wired up yet.");
+}
+
+/** DELETE /bank-accounts/:id. STUB. */
+export async function disconnectBankAccount(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  accountId: string
+): Promise<BankAccount> {
+  throw new Error("disconnectBankAccount is not wired up yet.");
+}
+
+/** DELETE /users/me — { password }. STUB. */
+export async function deleteAccount(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  password: string
+): Promise<{ message: string }> {
+  throw new Error("deleteAccount is not wired up yet.");
 }

@@ -5,6 +5,8 @@ import Image from "next/image";
 import {
   getMyProfile,
   updateMyProfile,
+  uploadAvatar,
+  removeAvatar,
   type UserProfile,
 } from "../lib/userSettingsApi";
 import type { DemoAccount } from "../lib/demo-auth";
@@ -52,14 +54,20 @@ export default function ProfileTab({ account }: ProfileTabProps) {
     }
   };
 
-  // Photo upload isn't backed by any documented endpoint yet — this is a
-  // client-side-only preview, not a real upload.
+  // POST /users/me/avatar exists now (see userSettingsApi.ts) but is
+  // stubbed pending backend integration — shows the local preview
+  // immediately either way, and attempts the real upload in the
+  // background so the wiring is exercised without blocking the UI on it.
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
     reader.onload = () => setPhotoPreview(reader.result as string);
     reader.readAsDataURL(file);
+
+    uploadAvatar(file).catch(() => {
+      // Stubbed for now — local preview above already reflects the choice.
+    });
   };
 
   return (
@@ -94,7 +102,12 @@ export default function ProfileTab({ account }: ProfileTabProps) {
         </button>
         <button
           type="button"
-          onClick={() => setPhotoPreview(null)}
+          onClick={() => {
+            setPhotoPreview(null);
+            removeAvatar().catch(() => {
+              // Stubbed for now.
+            });
+          }}
           className="rounded-lg border border-red-400 px-5 py-2 text-sm font-semibold text-red-500 transition hover:bg-red-50"
         >
           Remove Photo
