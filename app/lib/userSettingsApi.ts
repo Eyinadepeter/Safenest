@@ -1,16 +1,3 @@
-// app/lib/userSettingsApi.ts
-//
-// Wires the Settings page to the real SafeNest backend. Mirrors the same
-// conventions as app/lib/goalCalculationApi.ts (same base URL, same
-// envelope unwrapping, same Bearer token from localStorage). See that
-// file's header comment for why this is separate from app/lib/api.ts.
-//
-// NOTE: same caveat as goalCalculationApi.ts — nothing currently sets a
-// real `accessToken` in localStorage (auth is still app/lib/demo-auth.ts,
-// a local mock), so calls from here will 401 until real backend auth is
-// wired up. That's a separate, deliberately out-of-scope task for this
-// page — not something broken in this file.
-
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_GOALS_API_URL ??
   "https://safe-nest-de6h.onrender.com/api/v1";
@@ -74,9 +61,7 @@ async function settingsApiFetch<T>(
     // Same network/CORS failure mode documented in goalCalculationApi.ts —
     // surface a clear message instead of the browser's bare error.
     throw new Error(
-      "Couldn't reach the SafeNest server. This usually means the API " +
-        "isn't reachable from this origin (a CORS setting on the backend) " +
-        "or you're not signed in with a real account yet."
+      "Couldn't reach the SafeNest server."
     );
   }
 
@@ -131,15 +116,6 @@ export function updateNotificationSettings(
     body: JSON.stringify(payload),
   });
 }
-
-// ============================================================================
-// Newer endpoints (photo, 2FA, connected bank, delete account) — types and
-// shapes match the confirmed backend contract, but the actual network calls
-// are deliberately NOT wired up yet, per instruction to hold off on backend
-// integration for these. Each function below is a documented stub; swapping
-// it for the real settingsApiFetch call (pattern shown in the functions
-// above) is a self-contained change when that's ready.
-// ============================================================================
 
 export interface TwoFactorSetup {
   qrCodeDataUrl: string;
