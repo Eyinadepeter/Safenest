@@ -1,16 +1,3 @@
-// app/lib/userSettingsApi.ts
-//
-// Wires the Settings page to the real SafeNest backend. Mirrors the same
-// conventions as app/lib/goalCalculationApi.ts (same base URL, same
-// envelope unwrapping, same Bearer token from localStorage). See that
-// file's header comment for why this is separate from app/lib/api.ts.
-//
-// NOTE: same caveat as goalCalculationApi.ts — nothing currently sets a
-// real `accessToken` in localStorage (auth is still app/lib/demo-auth.ts,
-// a local mock), so calls from here will 401 until real backend auth is
-// wired up. That's a separate, deliberately out-of-scope task for this
-// page — not something broken in this file.
-
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_GOALS_API_URL ??
   "https://safe-nest-de6h.onrender.com/api/v1";
@@ -56,7 +43,7 @@ function getAuthToken(): string | null {
 
 async function settingsApiFetch<T>(
   path: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T> {
   const token = getAuthToken();
 
@@ -73,17 +60,13 @@ async function settingsApiFetch<T>(
   } catch {
     // Same network/CORS failure mode documented in goalCalculationApi.ts —
     // surface a clear message instead of the browser's bare error.
-    throw new Error(
-      "Couldn't reach the SafeNest server. This usually means the API " +
-        "isn't reachable from this origin (a CORS setting on the backend) " +
-        "or you're not signed in with a real account yet."
-    );
+    throw new Error("Couldn't reach the SafeNest server.");
   }
 
   if (!response.ok) {
     const errorBody = await response.json().catch(() => null);
     throw new Error(
-      errorBody?.message || `Request failed with status ${response.status}`
+      errorBody?.message || `Request failed with status ${response.status}`,
     );
   }
 
@@ -99,7 +82,7 @@ export function getMyProfile(): Promise<UserProfile> {
 /** PUT /users/me — only fullName and phone are updatable per the API doc;
  * email is display-only here. */
 export function updateMyProfile(
-  payload: UpdateProfilePayload
+  payload: UpdateProfilePayload,
 ): Promise<UserProfile> {
   return settingsApiFetch<UserProfile>("/users/me", {
     method: "PUT",
@@ -109,7 +92,7 @@ export function updateMyProfile(
 
 /** PUT /auth/change-password */
 export function changePassword(
-  payload: ChangePasswordPayload
+  payload: ChangePasswordPayload,
 ): Promise<{ message: string }> {
   return settingsApiFetch<{ message: string }>("/auth/change-password", {
     method: "PUT",
@@ -124,22 +107,13 @@ export function getNotificationSettings(): Promise<NotificationSettings> {
 
 /** PUT /users/me/settings — send only what changed */
 export function updateNotificationSettings(
-  payload: Partial<NotificationSettings>
+  payload: Partial<NotificationSettings>,
 ): Promise<NotificationSettings> {
   return settingsApiFetch<NotificationSettings>("/users/me/settings", {
     method: "PUT",
     body: JSON.stringify(payload),
   });
 }
-
-// ============================================================================
-// Newer endpoints (photo, 2FA, connected bank, delete account) — types and
-// shapes match the confirmed backend contract, but the actual network calls
-// are deliberately NOT wired up yet, per instruction to hold off on backend
-// integration for these. Each function below is a documented stub; swapping
-// it for the real settingsApiFetch call (pattern shown in the functions
-// above) is a self-contained change when that's ready.
-// ============================================================================
 
 export interface TwoFactorSetup {
   qrCodeDataUrl: string;
@@ -161,7 +135,7 @@ export interface BankAccount {
 /** POST /users/me/avatar — multipart/form-data, field "file". STUB. */
 export async function uploadAvatar(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  file: File
+  file: File,
 ): Promise<UserProfile> {
   throw new Error("uploadAvatar is not wired up yet.");
 }
@@ -179,7 +153,7 @@ export async function setupTwoFactor(): Promise<TwoFactorSetup> {
 /** POST /auth/2fa/enable — { code }. STUB. */
 export async function enableTwoFactor(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  code: string
+  code: string,
 ): Promise<{ message: string }> {
   throw new Error("enableTwoFactor is not wired up yet.");
 }
@@ -187,7 +161,7 @@ export async function enableTwoFactor(
 /** POST /auth/2fa/disable — { password }. STUB. */
 export async function disableTwoFactor(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  password: string
+  password: string,
 ): Promise<{ message: string }> {
   throw new Error("disableTwoFactor is not wired up yet.");
 }
@@ -200,7 +174,7 @@ export async function listBankAccounts(): Promise<BankAccount[]> {
 /** DELETE /bank-accounts/:id. STUB. */
 export async function disconnectBankAccount(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  accountId: string
+  accountId: string,
 ): Promise<BankAccount> {
   throw new Error("disconnectBankAccount is not wired up yet.");
 }
@@ -208,7 +182,7 @@ export async function disconnectBankAccount(
 /** DELETE /users/me — { password }. STUB. */
 export async function deleteAccount(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  password: string
+  password: string,
 ): Promise<{ message: string }> {
   throw new Error("deleteAccount is not wired up yet.");
 }
