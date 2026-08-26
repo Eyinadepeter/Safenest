@@ -1,42 +1,56 @@
-// app/lib/demo-auth.ts
-//
-// Despite the filename (kept to avoid touching every page that imports
-// from "../lib/demo-auth" — dashboard, connect-bank, settings, ProfileTab,
-// AccountTab all use these exact function names), this now backs onto a
-// real session: a real accessToken from app/lib/authApi.ts, stored under
-// the same "accessToken" key that goalCalculationApi.ts and
-// userSettingsApi.ts already read.
-//
-// saveDemoAccount()/authenticateDemoAccount() (the old synchronous,
-// fake-network mock functions) are gone — signin/page.tsx and
-// signup/page.tsx now call authApi.ts's login()/register() directly (real,
-// async, real error handling) and then call setCurrentAccount() below to
-// persist the session.
+const ACCOUNTS_KEY = "safenest-demo-accounts";
+const CURRENT_ACCOUNT_KEY = "safenest-demo-current-account";
 
-const CURRENT_ACCOUNT_KEY = "safenest-current-account";
-const ACCESS_TOKEN_KEY = "accessToken";
-
-// Kept as "DemoAccount" (not renamed) since it's imported by type in
-// several other files — renaming would mean touching all of them for no
-// functional benefit.
 export type DemoAccount = {
   fullName: string;
   email: string;
+  password: string;
 };
 
-export function setCurrentAccount(account: DemoAccount, accessToken: string) {
-  if (typeof window === "undefined") return;
-  localStorage.setItem(CURRENT_ACCOUNT_KEY, JSON.stringify(account));
-  localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+function getAccounts(): DemoAccount[] {
+  if (typeof window === "undefined") return [];
+
+  try {
+    const accounts = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) ?? "[]");
+    return Array.isArray(accounts) ? accounts : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveDemoAccount(account: DemoAccount) {
+  const accounts = getAccounts();
+  const email = account.email.trim().toLowerCase();
+  const nextAccount = { ...account, email };
+  const existingAccount = accounts.findIndex((item) => item.email === email);
+
+  if (existingAccount >= 0) {
+    accounts[existingAccount] = nextAccount;
+  } else {
+    accounts.push(nextAccount);
+  }
+
+  localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts));
+}
+
+export function authenticateDemoAccount(email: string, password: string) {
+  const account = getAccounts().find(
+    (account) =>
+      account.email === email.trim().toLowerCase() && account.password === password
+  );
+
+  if (account) {
+    localStorage.setItem(CURRENT_ACCOUNT_KEY, JSON.stringify(account));
+  }
+
+  return account;
 }
 
 export function getCurrentDemoAccount(): DemoAccount | null {
   if (typeof window === "undefined") return null;
 
   try {
-    const account = JSON.parse(
-      localStorage.getItem(CURRENT_ACCOUNT_KEY) ?? "null"
-    );
+    const account = JSON.parse(localStorage.getItem(CURRENT_ACCOUNT_KEY) ?? "null");
     return account && typeof account.email === "string" ? account : null;
   } catch {
     return null;
@@ -44,7 +58,7 @@ export function getCurrentDemoAccount(): DemoAccount | null {
 }
 
 export function clearCurrentDemoAccount() {
-  if (typeof window === "undefined") return;
-  localStorage.removeItem(CURRENT_ACCOUNT_KEY);
-  localStorage.removeItem(ACCESS_TOKEN_KEY);
+  if (typeof window !== "undefined") {
+    localStorage.removeItem(CURRENT_ACCOUNT_KEY);
+  }
 }

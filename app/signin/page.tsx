@@ -14,8 +14,7 @@ import facebookIcon from "../assets/images/facebookicon.png";
 import appleIcon from "../assets/images/appleIcon.png";
 
 import PasswordIncorrectModal from "../components/PasswordIncorrectModal";
-import { setCurrentAccount } from "../lib/demo-auth";
-import { login } from "../lib/authApi";
+import { authenticateDemoAccount } from "../lib/demo-auth";
 
 // =========================
 // Validation
@@ -53,8 +52,6 @@ export default function SignInPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showIncorrectModal, setShowIncorrectModal] = useState(false);
-  const [mfaMessage, setMfaMessage] = useState<string | null>(null);
-  const [genericError, setGenericError] = useState<string | null>(null);
 
   const {
     register,
@@ -66,39 +63,15 @@ export default function SignInPage() {
     mode: "onBlur",
   });
 
-  const onSubmit = async (values: SignInValues) => {
-    setMfaMessage(null);
-    setGenericError(null);
+  const onSubmit = (values: SignInValues) => {
+    const account = authenticateDemoAccount(values.email, values.password);
 
-    try {
-      const result = await login({
-        email: values.email,
-        password: values.password,
-      });
-
-      if ("mfaRequired" in result) {
-        // Login-time 2FA challenge screen isn't built yet (lives outside
-        // Settings — separate task). Surface this honestly rather than
-        // getting stuck or crashing.
-        setMfaMessage(
-          "This account has two-factor authentication enabled. Signing in with a 2FA code isn't supported yet."
-        );
-        return;
-      }
-
-      setCurrentAccount(
-        { fullName: result.user.fullName, email: result.user.email },
-        result.accessToken
-      );
-      router.push(`/welcome?name=${encodeURIComponent(result.user.fullName)}`);
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "";
-      if (/invalid|incorrect|password/i.test(message)) {
-        setShowIncorrectModal(true);
-      } else {
-        setGenericError(message || "Something went wrong. Please try again.");
-      }
+    if (!account) {
+      setShowIncorrectModal(true);
+      return;
     }
+
+    router.push(`/welcome?name=${encodeURIComponent(account.fullName)}`);
   };
 
   const handleTryAgain = () => {
@@ -221,13 +194,6 @@ export default function SignInPage() {
                 </div>
                 <FieldError message={errors.password?.message} />
               </div>
-
-              {mfaMessage && (
-                <p className="text-sm text-amber-600">{mfaMessage}</p>
-              )}
-              {genericError && (
-                <p className="text-sm text-red-600">{genericError}</p>
-              )}
 
               <button
                 type="submit"
