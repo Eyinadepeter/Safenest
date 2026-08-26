@@ -4,8 +4,7 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { setCurrentAccount } from "../lib/demo-auth";
-import { register as registerUser } from "../lib/authApi";
+import { saveDemoAccount } from "../lib/demo-auth";
 import { z } from "zod";
 import Image from "next/image";
 import { Eye, EyeOff } from "lucide-react";
@@ -124,28 +123,13 @@ const [showConfirm, setShowConfirm] = useState(false);
 
   const password = watch("password", "");
 
- const [submitError, setSubmitError] = useState<string | null>(null);
-
- const onSubmit = async (values: SignUpValues) => {
-  setSubmitError(null);
-  try {
-    const result = await registerUser({
-      fullName: values.fullName,
-      email: values.email,
-      phone: values.phone,
-      password: values.password,
-      confirmPassword: values.confirmPassword,
-    });
-    setCurrentAccount(
-      { fullName: result.user.fullName, email: result.user.email },
-      result.accessToken
-    );
-    router.push(`/welcome?name=${encodeURIComponent(result.user.fullName)}`);
-  } catch (err) {
-    setSubmitError(
-      err instanceof Error ? err.message : "Something went wrong."
-    );
-  }
+ const onSubmit = (values: SignUpValues) => {
+  saveDemoAccount({
+    fullName: values.fullName,
+    email: values.email,
+    password: values.password,
+  });
+  router.push(`/welcome?name=${encodeURIComponent(values.fullName)}`);
 };
 
   return (
@@ -341,9 +325,6 @@ const [showConfirm, setShowConfirm] = useState(false);
   ))}
 </div>
             </div>
-            {submitError && (
-              <p className="text-sm text-red-600">{submitError}</p>
-            )}
             <button
               type="submit"
               disabled={isSubmitting}
